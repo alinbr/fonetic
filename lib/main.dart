@@ -38,12 +38,13 @@ class MyApp extends StatelessWidget {
           ),
           bodyText1: TextStyle(
             color: Colors.white,
-            fontSize: 14.0,
+            fontSize: 16.0,
             fontWeight: FontWeight.w600,
             letterSpacing: 1.0,
           ),
           bodyText2: TextStyle(
             color: Color(0xFFb0b3b0),
+            fontSize: 12.0,
             letterSpacing: 1.0,
           ),
         ),

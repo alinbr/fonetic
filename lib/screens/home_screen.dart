@@ -5,15 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fonetic/controllers/script_template_controller.dart';
 import 'package:fonetic/models/script_template.dart';
 
-const cardColors = [
-  Colors.teal,
-  Colors.redAccent,
-  Colors.orangeAccent,
-  Colors.blue,
-  Colors.green,
-  Colors.purpleAccent,
-];
-
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -101,14 +92,6 @@ class _DiscoverPlayCard extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         color: const Color(0xFF242526),
-        gradient: LinearGradient(
-            colors: [
-              cardColors[rng.nextInt(cardColors.length)].withOpacity(0.3),
-              const Color(0xFF242526),
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            stops: [0, 0.25]),
       ),
       margin: EdgeInsets.only(right: 16),
       child: Container(
@@ -125,16 +108,18 @@ class _DiscoverPlayCard extends StatelessWidget {
             height: 100,
           ),
           SizedBox(
-            height: 8,
+            height: 16,
           ),
           Container(
             height: 35,
-            child: Text(
-              template.name,
-              style: Theme.of(context).textTheme.bodyText1,
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 2,
+            child: Center(
+              child: Text(
+                template.name,
+                style: Theme.of(context).textTheme.bodyText1,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
             ),
           ),
           SizedBox(
