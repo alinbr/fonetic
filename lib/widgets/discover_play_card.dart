@@ -16,10 +16,9 @@ class DiscoverPlayCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final closedContainer = Container(
       width: 250.w,
-      padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 4.h),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        color: const Color(0xFF181818),
+        color: const Color(0xFF2a2a2a),
       ),
       margin: EdgeInsets.only(right: 16.w, left: first ? 16.w : 0),
       child: Container(
@@ -28,26 +27,28 @@ class DiscoverPlayCard extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               color: Colors.orangeAccent,
-              borderRadius: BorderRadius.circular(50),
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(16), topRight: Radius.circular(16)),
               image: DecorationImage(
                   image: NetworkImage(template.cover), fit: BoxFit.cover),
             ),
-            width: 100.h,
+            width: double.infinity,
             height: 100.h,
           ),
           SizedBox(
-            height: 4.h,
+            height: 8.h,
           ),
           Container(
-            height: 35.h,
-            child: Center(
-              child: Text(
-                template.name,
-                style: Theme.of(context).textTheme.subtitle1,
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-              ),
+            padding: EdgeInsets.only(left: 8.h),
+            width: double.infinity,
+            child: Text(
+              template.name,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyText1!
+                  .copyWith(fontWeight: FontWeight.bold),
+              textAlign: TextAlign.start,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
           SizedBox(
@@ -58,15 +59,17 @@ class DiscoverPlayCard extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 8.h),
               child: Text(
                 template.description,
-                style: Theme.of(context).textTheme.bodyText2,
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      color: Color(0xFFc7c1c5),
+                    ),
                 textAlign: TextAlign.start,
                 overflow: TextOverflow.ellipsis,
-                maxLines: 9,
+                maxLines: 10,
               ),
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.h),
+            padding: EdgeInsets.symmetric(horizontal: 8.h, vertical: 8.h),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -108,7 +111,7 @@ class _PlayData extends StatelessWidget {
       children: [
         Icon(
           icon,
-          color: const Color(0xFFBFBFBF),
+          color: Color(0xFFc7c1c5),
         ),
         SizedBox(
           width: 4.w,
@@ -116,7 +119,7 @@ class _PlayData extends StatelessWidget {
         Text(
           text,
           style: Theme.of(context).textTheme.caption!.copyWith(
-                color: const Color(0xFFBFBFBF),
+                color: const Color(0xFFc7c1c5),
               ),
         )
       ],

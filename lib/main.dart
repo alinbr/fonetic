@@ -21,16 +21,16 @@ class MyApp extends StatelessWidget {
         darkTheme: ThemeData(
           brightness: Brightness.dark,
           appBarTheme: const AppBarTheme(backgroundColor: Colors.black),
-          scaffoldBackgroundColor: const Color(0xFF0A0A0A),
-          backgroundColor: const Color(0xFF0A0A0A),
-          primaryColor: const Color(0xFF0A0A0A),
+          scaffoldBackgroundColor: const Color(0xFF121212),
+          backgroundColor: const Color(0xFF121212),
+          primaryColor: const Color(0xFF121212),
           accentColor: Colors.teal,
           iconTheme: const IconThemeData().copyWith(color: Colors.white),
           fontFamily: 'Montserrat',
           textTheme: TextTheme(
             headline2: TextStyle(
               color: Colors.white,
-              fontSize: 32.sp,
+              fontSize: 24.sp,
               fontWeight: FontWeight.bold,
             ),
             headline4: TextStyle(
@@ -39,11 +39,9 @@ class MyApp extends StatelessWidget {
             ),
             bodyText1: TextStyle(
               color: Colors.white,
-              letterSpacing: 1.0,
             ),
             bodyText2: TextStyle(
               color: const Color(0xFFBFBFBF),
-              letterSpacing: 1.0,
             ),
           ),
           pageTransitionsTheme: const PageTransitionsTheme(
