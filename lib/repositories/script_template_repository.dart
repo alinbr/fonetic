@@ -18,7 +18,9 @@ class ScriptTemplateRepository implements BaseScriptTemplateRepository {
     try {
       final snap = await _service.collection('scriptTemplates').get();
 
-      return snap.docs.map((e) => ScriptTemplate.fromJson(e.data())).toList();
+      return snap.docs
+          .map((e) => ScriptTemplate.fromJson(e.id, e.data()))
+          .toList();
     } on FirebaseException catch (e) {
       throw Exception("Could not retrieve plays: ${e.message}");
     }
