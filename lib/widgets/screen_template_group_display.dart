@@ -17,10 +17,7 @@ class ScreenTemplateGroupDisplay extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: Theme.of(context).textTheme.bodyText1,
-          ),
+          Text(title, style: Theme.of(context).textTheme.headline5),
           SizedBox(
             height: 8.h,
           ),

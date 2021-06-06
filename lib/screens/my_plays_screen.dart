@@ -10,7 +10,10 @@ class MyPlaysScreen extends ConsumerWidget {
     return Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
-          title: Text('My plays'),
+          title: Text(
+            'My plays',
+            style: Theme.of(context).textTheme.headline6,
+          ),
         ),
         body: myPlays.when(
             data: (data) {

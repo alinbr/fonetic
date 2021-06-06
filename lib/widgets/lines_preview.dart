@@ -24,43 +24,24 @@ class LinesPreview extends ConsumerWidget {
             Row(
               children: [
                 Flexible(
-                  child: Text(
-                    '${e.character}',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline3!
-                        .copyWith(fontSize: 16.sp),
-                  ),
+                  child: Text('${e.character}',
+                      style: Theme.of(context).textTheme.bodyText1),
                 ),
-                Text(
-                  note,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline3!
-                      .copyWith(fontSize: 16.sp),
-                ),
-                Text(
-                  ' : ',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline3!
-                      .copyWith(fontSize: 16.sp),
-                ),
+                Text(note, style: Theme.of(context).textTheme.bodyText2),
+                Text(' : ', style: Theme.of(context).textTheme.bodyText2),
               ],
             ),
             Row(children: [
               Flexible(
-                child: Text(
-                  '${e.text}',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline3!
-                      .copyWith(fontSize: 20.sp, color: Colors.white),
-                ),
+                child: Text('${e.text}',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1!
+                        .copyWith(fontWeight: FontWeight.w400)),
               )
             ]),
             SizedBox(
-              height: 24.h,
+              height: 16.h,
             ),
           ],
         );

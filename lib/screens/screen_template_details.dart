@@ -24,19 +24,20 @@ class ScreenTemplateDetails extends ConsumerWidget {
             stretch: false,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
-              title: Text(
-                template.name,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline5!
-                    .copyWith(fontSize: 20.sp),
+              title: SafeArea(
+                child: Text(
+                  template.name,
+                  style: Theme.of(context).textTheme.headline6,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 4,
+                ),
               ),
               collapseMode: CollapseMode.parallax,
               background: Opacity(
-                  opacity: 0.4,
-                  child: Image(
-                      image: NetworkImage(template.cover), fit: BoxFit.cover)),
-              centerTitle: true,
+                opacity: 0.4,
+                child: Image(
+                    image: NetworkImage(template.cover), fit: BoxFit.cover),
+              ),
             ),
           ),
           _DetailsList(template: template)
@@ -105,7 +106,7 @@ class _DetailsList extends StatelessWidget {
               children: [
                 Text(
                   'Lines',
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.headline5,
                 ),
                 SizedBox(
                   height: 8.h,

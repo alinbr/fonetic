@@ -1,3 +1,5 @@
+import 'package:enum_to_string/enum_to_string.dart';
+
 enum PlayStatus { IN_PROGRESS, POST_PRODUCTION, FINISHED }
 
 class Play {
@@ -15,16 +17,17 @@ class Play {
 
   Play.fromJson(Map<String, Object?> json)
       : this(
-            producerId: '1',
-            scriptTemplateId: 'a',
-            playStatus: PlayStatus.IN_PROGRESS,
+            producerId: json['producerId'] as String,
+            scriptTemplateId: json['scriptTemplateId'] as String,
+            playStatus: EnumToString.fromString(
+                PlayStatus.values, json['playStatus'] as String)!,
             characters: List<Character>.empty());
 
   Map<String, Object?> toJson() {
     return {
       'producerId': producerId,
       'scriptTemplateId': scriptTemplateId,
-      'playStatus': playStatus.toString(),
+      'playStatus': EnumToString.convertToString(playStatus),
       'characters': characters.map((element) => element.toJson()).toList()
     };
   }
