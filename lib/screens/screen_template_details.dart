@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fonetic/controllers/lines_controller.dart';
+import 'package:fonetic/controllers/play_controller.dart';
 import 'package:fonetic/models/script_template.dart';
+import 'package:fonetic/screens/my_plays_screen.dart';
 import 'package:fonetic/widgets/lines_preview.dart';
 import 'package:fonetic/widgets/screen_template_group_display.dart';
 
-class ScreenTemplateDetails extends StatelessWidget {
+class ScreenTemplateDetails extends ConsumerWidget {
   final ScriptTemplate template;
 
   const ScreenTemplateDetails({Key? key, required this.template})
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ScopedReader watch) {
     return Scaffold(
       body: CustomScrollView(
         physics: ClampingScrollPhysics(),
@@ -54,7 +55,16 @@ class ScreenTemplateDetails extends StatelessWidget {
           'PRODUCE',
           style: Theme.of(context).textTheme.button,
         ),
-        onPressed: () {},
+        onPressed: () {
+          watch(playProvider('1').notifier).addPlay(template.id ?? '');
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute<void>(
+              builder: (BuildContext context) {
+                return MyPlaysScreen();
+              },
+            ),
+          );
+        },
       ),
     );
   }

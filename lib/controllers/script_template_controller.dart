@@ -26,4 +26,9 @@ class ScriptTemplateController
       state = AsyncValue.error(e, st);
     }
   }
+
+  Future<ScriptTemplate> getScriptTemplate(String scriptTemplateId) async {
+    final script = await _repository.retrieveScriptTemplate(scriptTemplateId);
+    return script;
+  }
 }

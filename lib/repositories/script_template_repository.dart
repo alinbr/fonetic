@@ -4,6 +4,7 @@ import 'package:fonetic/models/script_template.dart';
 
 abstract class BaseScriptTemplateRepository {
   Future<List<ScriptTemplate>> retrieveScriptTemplates();
+  Future<ScriptTemplate> retrieveScriptTemplate(String id);
 }
 
 final scriptTemplateRepository = Provider<ScriptTemplateRepository>((ref) {
@@ -21,6 +22,16 @@ class ScriptTemplateRepository implements BaseScriptTemplateRepository {
       return snap.docs
           .map((e) => ScriptTemplate.fromJson(e.id, e.data()))
           .toList();
+    } on FirebaseException catch (e) {
+      throw Exception("Could not retrieve plays: ${e.message}");
+    }
+  }
+
+  @override
+  Future<ScriptTemplate> retrieveScriptTemplate(String id) async {
+    try {
+      final snap = await _service.collection('scriptTemplates').doc(id).get();
+      return ScriptTemplate.fromJson(id, snap.data()!);
     } on FirebaseException catch (e) {
       throw Exception("Could not retrieve plays: ${e.message}");
     }
