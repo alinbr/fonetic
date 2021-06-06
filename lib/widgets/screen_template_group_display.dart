@@ -13,7 +13,7 @@ class ScreenTemplateGroupDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(8.h),
-      color: Theme.of(context).primaryColor,
+      color: Theme.of(context).backgroundColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

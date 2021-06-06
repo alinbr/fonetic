@@ -41,8 +41,19 @@ class ScreenTemplateDetails extends StatelessWidget {
           _DetailsList(template: template)
         ],
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: ElevatedButton(
-        child: Text('PRODUCE'),
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(Colors.teal),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18.0),
+          )),
+        ),
+        child: Text(
+          'PRODUCE',
+          style: Theme.of(context).textTheme.button,
+        ),
         onPressed: () {},
       ),
     );
@@ -61,7 +72,7 @@ class _DetailsList extends StatelessWidget {
         [
           Container(
             height: 16.h,
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).backgroundColor,
           ),
           ScreenTemplateGroupDisplay(
             title: 'Description',
@@ -78,7 +89,7 @@ class _DetailsList extends StatelessWidget {
           ),
           Container(
             padding: EdgeInsets.all(8.h),
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).backgroundColor,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

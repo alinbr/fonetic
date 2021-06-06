@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: const Color(0x18191A),
           backgroundColor: const Color(0xFF121212),
           primaryColor: Colors.black,
-          accentColor: const Color(0xFF1DB954),
+          accentColor: Colors.teal,
           iconTheme: const IconThemeData().copyWith(color: Colors.white),
           fontFamily: 'Montserrat',
           textTheme: TextTheme(
