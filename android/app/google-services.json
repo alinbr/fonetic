@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "117924331862",
+    "project_id": "fonetic-16dce",
+    "storage_bucket": "fonetic-16dce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:117924331862:android:e0dade59836a07d30a16f7",
+        "android_client_info": {
+          "package_name": "com.example.fonetic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "117924331862-rkgbmskjhftiv1dhrsld5clh8qi97jcj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTPTLFjIcp9t6lhl0P4WS2ogtmvK4NUck"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "117924331862-rkgbmskjhftiv1dhrsld5clh8qi97jcj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "117924331862-ak7s14e35uvc0tv0gf2pkbeng6m4n1il.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.fonetic"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
