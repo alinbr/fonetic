@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fonetic/controllers/lines_controller.dart';
 import 'package:fonetic/models/script_template.dart';
+import 'package:fonetic/widgets/lines_preview.dart';
+import 'package:fonetic/widgets/screen_template_group_display.dart';
 
 class ScreenTemplateDetails extends StatelessWidget {
   final ScriptTemplate template;
@@ -61,66 +63,18 @@ class _DetailsList extends StatelessWidget {
             height: 16.h,
             color: Theme.of(context).primaryColor,
           ),
-          Container(
-            padding: EdgeInsets.all(8.h),
-            color: Theme.of(context).primaryColor,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Description',
-                  style: Theme.of(context).textTheme.bodyText1,
-                ),
-                SizedBox(
-                  height: 8.h,
-                ),
-                Text(
-                  template.description,
-                  style: Theme.of(context).textTheme.bodyText2,
-                )
-              ],
-            ),
+          ScreenTemplateGroupDisplay(
+            title: 'Description',
+            content: template.description,
           ),
-          Container(
-            padding: EdgeInsets.all(8.h),
-            color: Theme.of(context).primaryColor,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Characters',
-                  style: Theme.of(context).textTheme.bodyText1,
-                ),
-                SizedBox(
-                  height: 8.h,
-                ),
-                Text(
-                  template.characters
-                      .reduce((value, element) => value + ", " + element),
-                  style: Theme.of(context).textTheme.bodyText2,
-                )
-              ],
-            ),
+          ScreenTemplateGroupDisplay(
+            title: 'Characters',
+            content: template.characters
+                .reduce((value, element) => value + ", " + element),
           ),
-          Container(
-            padding: EdgeInsets.all(8.h),
-            color: Theme.of(context).primaryColor,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Duration',
-                  style: Theme.of(context).textTheme.bodyText1,
-                ),
-                SizedBox(
-                  height: 8.h,
-                ),
-                Text(
-                  '${template.duration} min',
-                  style: Theme.of(context).textTheme.bodyText2,
-                )
-              ],
-            ),
+          ScreenTemplateGroupDisplay(
+            title: 'Duration',
+            content: '${template.duration} min',
           ),
           Container(
             padding: EdgeInsets.all(8.h),
@@ -135,84 +89,12 @@ class _DetailsList extends StatelessWidget {
                 SizedBox(
                   height: 8.h,
                 ),
-                _Lines(templateId: template.id ?? ''),
+                LinesPreview(templateId: template.id ?? ''),
               ],
             ),
           ),
         ],
       ),
     );
-  }
-}
-
-class _Lines extends ConsumerWidget {
-  final String templateId;
-
-  _Lines({required this.templateId});
-
-  @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final linesListener = watch(linesProvider(templateId));
-
-    return linesListener.when(data: (data) {
-      data.sort((a, b) => a.order.compareTo(b.order));
-
-      return Column(
-          children: data.map((e) {
-        final note = e.note != "" ? '(${e.note})' : '';
-        return Column(
-          children: [
-            Row(
-              children: [
-                Flexible(
-                  child: Text(
-                    '${e.character}',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline3!
-                        .copyWith(fontSize: 16.sp),
-                  ),
-                ),
-                Text(
-                  note,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline3!
-                      .copyWith(fontSize: 16.sp),
-                ),
-                Text(
-                  ' : ',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline3!
-                      .copyWith(fontSize: 16.sp),
-                ),
-              ],
-            ),
-            Row(children: [
-              Flexible(
-                child: Text(
-                  '${e.text}',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline3!
-                      .copyWith(fontSize: 20.sp, color: Colors.white),
-                ),
-              )
-            ]),
-            SizedBox(
-              height: 24.h,
-            ),
-          ],
-        );
-      }).toList());
-    }, loading: () {
-      return Container(
-          color: Theme.of(context).primaryColor,
-          height: 200,
-          child: Center(child: CircularProgressIndicator()));
-    }, error: (e, st) {
-      return Container();
-    });
   }
 }
