@@ -85,7 +85,7 @@ class _DiscoverPlays extends ConsumerWidget {
         ),
       ),
       Container(
-          height: 280.h,
+          height: 300.h,
           width: double.infinity,
           child: scriptTemplates.when(data: (data) {
             return ListView.builder(

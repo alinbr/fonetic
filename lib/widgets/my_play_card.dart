@@ -32,7 +32,7 @@ class MyPlayCard extends ConsumerWidget {
                   children: [
                     Container(
                       width: double.infinity,
-                      height: 150,
+                      height: 150.h,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
                         color: const Color(0xFF242526),
@@ -43,7 +43,7 @@ class MyPlayCard extends ConsumerWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 8.h,
+                      height: 12.h,
                     ),
                     Text(
                       data.data!.name,

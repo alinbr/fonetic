@@ -15,7 +15,7 @@ class DiscoverPlayCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final closedContainer = Container(
-      width: 200.w,
+      width: 200.h,
       margin: EdgeInsets.only(right: 16.w, left: first ? 16.w : 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,7 +29,7 @@ class DiscoverPlayCard extends StatelessWidget {
                     image: NetworkImage(template.cover), fit: BoxFit.cover)),
           ),
           SizedBox(
-            height: 8.h,
+            height: 12.h,
           ),
           Text(
             template.name,
