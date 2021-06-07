@@ -25,30 +25,34 @@ class MyPlayCard extends ConsumerWidget {
         builder: (ctx, data) {
           if (data.connectionState == ConnectionState.done) {
             return Container(
-              width: 200.h,
-              padding: EdgeInsets.all(8.h),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                color: const Color(0xFF242526),
-                image: DecorationImage(
-                    image: NetworkImage(data.data!.cover),
-                    fit: BoxFit.cover,
-                    colorFilter: ColorFilter.mode(
-                      Colors.black54,
-                      BlendMode.darken,
-                    )),
-              ),
-              margin: EdgeInsets.only(right: 16.w, left: first ? 16.w : 0),
-              child: Text(
-                data.data!.name,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline5!
-                    .copyWith(color: Colors.white),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 4,
-              ),
-            );
+                width: 150.h,
+                margin: EdgeInsets.only(right: 16.w, left: first ? 16.w : 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      height: 150,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        color: const Color(0xFF242526),
+                        image: DecorationImage(
+                          image: NetworkImage(data.data!.cover),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 8.h,
+                    ),
+                    Text(
+                      data.data!.name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.bodyText1,
+                    )
+                  ],
+                ));
           } else {
             return Container();
           }

@@ -6,26 +6,36 @@ import 'package:fonetic/controllers/script_template_controller.dart';
 import 'package:fonetic/widgets/discover_play_card.dart';
 import 'package:fonetic/widgets/my_play_card.dart';
 
-import 'my_plays_screen.dart';
-
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 8.h),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                _Header(),
-                _DiscoverPlays(),
-                SizedBox(
-                  height: 24.h,
-                ),
-                _MyPlays(),
-              ],
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  colors: [
+                    Colors.teal.withOpacity(0.45),
+                    Colors.teal.withOpacity(0)
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomCenter,
+                  stops: [0, 0.35]),
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 16.h),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  _Header(),
+                  _DiscoverPlays(),
+                  SizedBox(
+                    height: 16.h,
+                  ),
+                  _MyPlays(),
+                ],
+              ),
             ),
           ),
         ),
@@ -47,7 +57,7 @@ class _Header extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .headline2!
-                .copyWith(color: Colors.teal),
+                .copyWith(color: Colors.white),
           ),
           IconButton(
             onPressed: () {},
@@ -75,7 +85,7 @@ class _DiscoverPlays extends ConsumerWidget {
         ),
       ),
       Container(
-          height: 350.h,
+          height: 280.h,
           width: double.infinity,
           child: scriptTemplates.when(data: (data) {
             return ListView.builder(
@@ -105,28 +115,10 @@ class _MyPlays extends ConsumerWidget {
       Container(
         padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 16.w),
         width: double.infinity,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'My plays',
-              textAlign: TextAlign.start,
-              style: Theme.of(context).textTheme.headline2,
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute<void>(
-                    builder: (BuildContext context) {
-                      return MyPlaysScreen();
-                    },
-                  ),
-                );
-              },
-              child:
-                  Text('SEE MORE', style: Theme.of(context).textTheme.button!),
-            )
-          ],
+        child: Text(
+          'My plays',
+          textAlign: TextAlign.start,
+          style: Theme.of(context).textTheme.headline2,
         ),
       ),
       Container(

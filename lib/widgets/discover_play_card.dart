@@ -15,80 +15,55 @@ class DiscoverPlayCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final closedContainer = Container(
-      width: 250.w,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: const Color(0xFF2a2a2a),
-      ),
+      width: 200.w,
       margin: EdgeInsets.only(right: 16.w, left: first ? 16.w : 0),
-      child: Container(
-          child: Column(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            decoration: BoxDecoration(
-              color: Colors.orangeAccent,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(16), topRight: Radius.circular(16)),
-              image: DecorationImage(
-                  image: NetworkImage(template.cover), fit: BoxFit.cover),
-            ),
             width: double.infinity,
-            height: 100.h,
+            height: 200.h,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                image: DecorationImage(
+                    image: NetworkImage(template.cover), fit: BoxFit.cover)),
           ),
           SizedBox(
             height: 8.h,
           ),
-          Container(
-            padding: EdgeInsets.only(left: 8.h),
-            width: double.infinity,
-            child: Text(
-              template.name,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText1!
-                  .copyWith(fontWeight: FontWeight.bold),
-              textAlign: TextAlign.start,
-              overflow: TextOverflow.ellipsis,
-            ),
+          Text(
+            template.name,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context)
+                .textTheme
+                .bodyText1!
+                .copyWith(fontWeight: FontWeight.bold),
           ),
+          Text(template.description,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                  color: Color(0xFFc7c1c5), fontWeight: FontWeight.w400)),
           SizedBox(
             height: 4.h,
           ),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.h),
-              child: Text(
-                template.description,
-                style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                      color: Color(0xFFc7c1c5),
-                    ),
-                textAlign: TextAlign.start,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 10,
+          Row(
+            children: [
+              _PlayData(icon: Icons.schedule, text: '${template.duration} min'),
+              SizedBox(
+                width: 8.w,
               ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.h, vertical: 8.h),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                _PlayData(
-                    icon: Icons.schedule, text: '${template.duration} min'),
-                SizedBox(
-                  width: 16.w,
-                ),
-                _PlayData(icon: Icons.people, text: template.roles.toString())
-              ],
-            ),
+              _PlayData(icon: Icons.people, text: '${template.roles}'),
+            ],
           )
         ],
-      )),
+      ),
     );
 
     return OpenContainer(
-        transitionType: ContainerTransitionType.fadeThrough,
-        closedColor: Theme.of(context).primaryColor,
+        transitionType: ContainerTransitionType.fade,
+        closedColor: Colors.transparent,
+        closedElevation: 0,
         closedBuilder: (ctx, action) {
           return closedContainer;
         },
@@ -112,16 +87,14 @@ class _PlayData extends StatelessWidget {
         Icon(
           icon,
           color: Color(0xFFc7c1c5),
+          size: 16.sp,
         ),
         SizedBox(
           width: 4.w,
         ),
-        Text(
-          text,
-          style: Theme.of(context).textTheme.caption!.copyWith(
-                color: const Color(0xFFc7c1c5),
-              ),
-        )
+        Text(text,
+            style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                color: Color(0xFFc7c1c5), fontWeight: FontWeight.w400))
       ],
     );
   }

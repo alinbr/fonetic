@@ -39,6 +39,7 @@ class MyApp extends StatelessWidget {
             ),
             bodyText1: TextStyle(
               color: Colors.white,
+              fontWeight: FontWeight.bold,
             ),
             bodyText2: TextStyle(
               color: const Color(0xFFBFBFBF),
