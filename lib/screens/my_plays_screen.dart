@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fonetic/controllers/play_controller.dart';
+import 'package:fonetic/controllers/my_plays_controller.dart';
 
 class MyPlaysScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final myPlays = watch(playProvider('1'));
+    final myPlays = watch(myPlaysProvider('1'));
 
     return Scaffold(
         backgroundColor: Colors.black,

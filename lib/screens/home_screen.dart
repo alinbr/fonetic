@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fonetic/controllers/play_controller.dart';
+import 'package:fonetic/controllers/my_plays_controller.dart';
 import 'package:fonetic/controllers/script_template_controller.dart';
 import 'package:fonetic/widgets/discover_play_card.dart';
 import 'package:fonetic/widgets/my_play_card.dart';
@@ -109,7 +109,7 @@ class _DiscoverPlays extends ConsumerWidget {
 class _MyPlays extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final myPlays = watch(playProvider("1"));
+    final myPlays = watch(myPlaysProvider("1"));
 
     return Column(children: [
       Container(
