@@ -1,14 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fonetic/controllers/script_template_controller.dart';
 import 'package:fonetic/models/play.dart';
-import 'package:fonetic/models/script_template.dart';
 import 'package:fonetic/repositories/play_repository.dart';
 
 final playProvider =
     StateNotifierProvider.family<PlayController, AsyncValue<Play>, String>(
         (ref, playId) {
   final repository = ref.watch(playRepository);
-  return PlayController(repository, ref.read, playId);
+
+  return PlayController(repository, playId);
 });
 
 class PlayController extends StateNotifier<AsyncValue<Play>> {
@@ -16,15 +15,7 @@ class PlayController extends StateNotifier<AsyncValue<Play>> {
 
   final String _playId;
 
-  late Play play;
-
-  final Reader _read;
-
-  late ScriptTemplate script;
-
-  PlayController(this._repository, this._read, this._playId)
-      : super(AsyncValue.loading()) {
-    print("sss");
+  PlayController(this._repository, this._playId) : super(AsyncValue.loading()) {
     retrievePlay();
   }
 
@@ -33,9 +24,6 @@ class PlayController extends StateNotifier<AsyncValue<Play>> {
 
     try {
       final item = await _repository.retrievePlay(_playId);
-      script = await _read(scriptTemplateProvider.notifier)
-          .getScriptTemplate(item.scriptTemplateId);
-      play = item;
       state = AsyncValue.data(item);
     } on Exception catch (e, st) {
       state = AsyncValue.error(e, st);
@@ -43,10 +31,12 @@ class PlayController extends StateNotifier<AsyncValue<Play>> {
   }
 
   Future<void> deletePlay() async {
-    await _repository.deletePlay(play.id!);
+    await _repository.deletePlay(_playId);
   }
 
   Future<void> assignCharacter(String character, String userId) async {
+    final play = state.data!.value;
+
     final newCharacter = play.characters
         .where((element) => element.character == character)
         .first
@@ -55,10 +45,10 @@ class PlayController extends StateNotifier<AsyncValue<Play>> {
     newCharacters.removeWhere((element) => element.character == character);
     newCharacters.add(newCharacter);
 
-    play = play.copyWith(characters: newCharacters);
+    final newPlay = play.copyWith(characters: newCharacters);
 
-    await _repository.updatePlay(play);
+    await _repository.updatePlay(newPlay);
 
-    state = AsyncValue.data(play);
+    state = AsyncValue.data(newPlay);
   }
 }

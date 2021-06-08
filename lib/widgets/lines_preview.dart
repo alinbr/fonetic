@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fonetic/controllers/lines_controller.dart';
 
+import 'loading_center.dart';
+
 class LinesPreview extends ConsumerWidget {
   final String templateId;
 
@@ -48,9 +50,10 @@ class LinesPreview extends ConsumerWidget {
       }).toList());
     }, loading: () {
       return Container(
-          color: Theme.of(context).primaryColor,
-          height: 200,
-          child: Center(child: CircularProgressIndicator()));
+        color: Theme.of(context).primaryColor,
+        height: 200,
+        child: LoadingCenter(),
+      );
     }, error: (e, st) {
       return Container();
     });

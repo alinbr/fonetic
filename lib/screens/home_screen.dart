@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fonetic/controllers/my_plays_controller.dart';
 import 'package:fonetic/controllers/script_template_controller.dart';
 import 'package:fonetic/widgets/discover_play_card.dart';
+import 'package:fonetic/widgets/loading_center.dart';
 import 'package:fonetic/widgets/my_play_card.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -87,21 +88,20 @@ class _DiscoverPlays extends ConsumerWidget {
       Container(
           height: 300.h,
           width: double.infinity,
-          child: scriptTemplates.when(data: (data) {
-            return ListView.builder(
-                itemCount: data.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (ctx, index) {
-                  return DiscoverPlayCard(
-                      template: data[index], first: index == 0);
-                });
-          }, loading: () {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }, error: (e, st) {
-            return Container();
-          }))
+          child: scriptTemplates.when(
+              data: (data) {
+                return ListView.builder(
+                    itemCount: data.length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (ctx, index) {
+                      return DiscoverPlayCard(
+                          template: data[index], first: index == 0);
+                    });
+              },
+              loading: () => LoadingCenter(),
+              error: (e, st) {
+                return Container();
+              }))
     ]);
   }
 }
@@ -124,23 +124,22 @@ class _MyPlays extends ConsumerWidget {
       Container(
           height: 200.h,
           width: double.infinity,
-          child: myPlays.when(data: (data) {
-            return ListView.builder(
-                itemCount: data.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (ctx, index) {
-                  return MyPlayCard(
-                    play: data[index],
-                    first: index == 0,
-                  );
-                });
-          }, loading: () {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }, error: (e, st) {
-            return Container();
-          }))
+          child: myPlays.when(
+              data: (data) {
+                return ListView.builder(
+                    itemCount: data.length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (ctx, index) {
+                      return MyPlayCard(
+                        play: data[index],
+                        first: index == 0,
+                      );
+                    });
+              },
+              loading: () => LoadingCenter(),
+              error: (e, st) {
+                return Container();
+              }))
     ]);
   }
 }

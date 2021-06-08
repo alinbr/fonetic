@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fonetic/controllers/my_plays_controller.dart';
+import 'package:fonetic/widgets/loading_center.dart';
 
 class MyPlaysScreen extends ConsumerWidget {
   @override
@@ -24,9 +25,7 @@ class MyPlaysScreen extends ConsumerWidget {
                 itemCount: data.length,
               );
             },
-            loading: () => Center(
-                  child: CircularProgressIndicator(),
-                ),
+            loading: () => LoadingCenter(),
             error: (error, _) => Container()));
   }
 }
