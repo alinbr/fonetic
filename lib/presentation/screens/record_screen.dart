@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fonetic/application/play_controller.dart';
 import 'package:fonetic/application/script_controller.dart';
-import 'package:fonetic/infrastructure/dtos/script.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fonetic/presentation/widgets/loading_center.dart';

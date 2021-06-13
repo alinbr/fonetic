@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: const Color(0xFF121212),
           primaryColor: const Color(0xFF121212),
           accentColor: Colors.teal,
+          cardColor: const Color(0xFF282828),
           iconTheme: const IconThemeData().copyWith(color: Colors.white),
           fontFamily: 'Montserrat',
           textTheme: TextTheme(

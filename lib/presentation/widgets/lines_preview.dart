@@ -18,36 +18,38 @@ class LinesPreview extends ConsumerWidget {
     return linesListener.when(data: (data) {
       data.sort((a, b) => a.order.compareTo(b.order));
 
-      return Column(
-          children: data.map((e) {
-        final note = e.note != "" ? '(${e.note})' : '';
-        return Column(
-          children: [
-            Row(
-              children: [
+      return SingleChildScrollView(
+        child: Column(
+            children: data.map((e) {
+          final note = e.note != "" ? ' (${e.note})' : '';
+          return Column(
+            children: [
+              Row(
+                children: [
+                  Flexible(
+                    child: Text('${e.character}',
+                        style: Theme.of(context).textTheme.bodyText2),
+                  ),
+                  Text(note, style: Theme.of(context).textTheme.bodyText2),
+                  Text(' : ', style: Theme.of(context).textTheme.bodyText2),
+                ],
+              ),
+              Row(children: [
                 Flexible(
-                  child: Text('${e.character}',
-                      style: Theme.of(context).textTheme.bodyText1),
-                ),
-                Text(note, style: Theme.of(context).textTheme.bodyText2),
-                Text(' : ', style: Theme.of(context).textTheme.bodyText2),
-              ],
-            ),
-            Row(children: [
-              Flexible(
-                child: Text('${e.text}',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1!
-                        .copyWith(fontWeight: FontWeight.w400)),
-              )
-            ]),
-            SizedBox(
-              height: 16.h,
-            ),
-          ],
-        );
-      }).toList());
+                  child: Text('${e.text}',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1!
+                          .copyWith(fontWeight: FontWeight.w400)),
+                )
+              ]),
+              SizedBox(
+                height: 16.h,
+              ),
+            ],
+          );
+        }).toList()),
+      );
     }, loading: () {
       return Container(
         color: Theme.of(context).primaryColor,

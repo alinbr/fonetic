@@ -12,14 +12,12 @@ class ScriptGroupDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(8.h),
-      color: Theme.of(context).backgroundColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: Theme.of(context).textTheme.headline5),
+          Text(title, style: Theme.of(context).textTheme.headline6),
           SizedBox(
-            height: 8.h,
+            height: 4.h,
           ),
           Text(
             content,
