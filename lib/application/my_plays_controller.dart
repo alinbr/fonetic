@@ -1,17 +1,17 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fonetic/controllers/play_controller.dart';
-import 'package:fonetic/controllers/script_template_controller.dart';
-import 'package:fonetic/models/play.dart';
-import 'package:fonetic/repositories/play_repository.dart';
+import 'package:fonetic/application/script_template_controller.dart';
+import 'package:fonetic/infrastructure/dtos/character_dto.dart';
+import 'package:fonetic/infrastructure/dtos/play_dto.dart';
+import 'package:fonetic/infrastructure/repositories/play_repository.dart';
 
 final myPlaysProvider = StateNotifierProvider.family<MyPlaysController,
-    AsyncValue<List<Play>>, String>((ref, userId) {
+    AsyncValue<List<PlayDto>>, String>((ref, userId) {
   final repository = ref.watch(playRepository);
 
   return MyPlaysController(repository, ref.read, userId);
 });
 
-class MyPlaysController extends StateNotifier<AsyncValue<List<Play>>> {
+class MyPlaysController extends StateNotifier<AsyncValue<List<PlayDto>>> {
   BasePlayRepository _repository;
 
   final Reader _read;
@@ -36,7 +36,7 @@ class MyPlaysController extends StateNotifier<AsyncValue<List<Play>>> {
   }
 
   void addPlay(String scriptTemplateId) async {
-    Play play = Play(
+    PlayDto play = PlayDto(
         producerId: '1',
         scriptTemplateId: scriptTemplateId,
         playStatus: PlayStatus.IN_PROGRESS,
@@ -52,7 +52,7 @@ class MyPlaysController extends StateNotifier<AsyncValue<List<Play>>> {
     return script.characters.map((e) => Character(null, e)).toList();
   }
 
-  Future<Play> retrievePlay(String playId) async {
+  Future<PlayDto> retrievePlay(String playId) async {
     return _repository.retrievePlay(playId);
   }
 }

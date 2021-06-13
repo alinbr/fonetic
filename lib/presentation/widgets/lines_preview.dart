@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fonetic/controllers/lines_controller.dart';
+import 'package:fonetic/application/lines_controller.dart';
 
 import 'loading_center.dart';
 

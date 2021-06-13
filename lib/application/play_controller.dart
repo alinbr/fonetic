@@ -1,16 +1,17 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fonetic/models/play.dart';
-import 'package:fonetic/repositories/play_repository.dart';
+import 'package:fonetic/infrastructure/dtos/character_dto.dart';
+import 'package:fonetic/infrastructure/dtos/play_dto.dart';
+import 'package:fonetic/infrastructure/repositories/play_repository.dart';
 
 final playProvider =
-    StateNotifierProvider.family<PlayController, AsyncValue<Play>, String>(
+    StateNotifierProvider.family<PlayController, AsyncValue<PlayDto>, String>(
         (ref, playId) {
   final repository = ref.watch(playRepository);
 
   return PlayController(repository, playId);
 });
 
-class PlayController extends StateNotifier<AsyncValue<Play>> {
+class PlayController extends StateNotifier<AsyncValue<PlayDto>> {
   BasePlayRepository _repository;
 
   final String _playId;
@@ -52,7 +53,7 @@ class PlayController extends StateNotifier<AsyncValue<Play>> {
     state = AsyncValue.data(newPlay);
   }
 
-  bool isRecordable(Play play) {
+  bool isRecordable(PlayDto play) {
     return !play.characters
         .where((element) => element.userId == null)
         .isNotEmpty;

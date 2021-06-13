@@ -1,11 +1,11 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
-import 'package:fonetic/models/script_template.dart';
+import 'package:fonetic/infrastructure/dtos/script_template_dto.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fonetic/screens/screen_template_details.dart';
+import 'package:fonetic/presentation/screens/screen_template_details.dart';
 
 class DiscoverPlayCard extends StatelessWidget {
-  final ScriptTemplate template;
+  final ScriptTemplateDto template;
   final bool first;
 
   const DiscoverPlayCard(

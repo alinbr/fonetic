@@ -1,15 +1,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fonetic/models/script_template.dart';
-import 'package:fonetic/repositories/script_template_repository.dart';
+import 'package:fonetic/infrastructure/dtos/script_template_dto.dart';
+import 'package:fonetic/infrastructure/repositories/script_template_repository.dart';
 
 final scriptTemplateProvider = StateNotifierProvider<ScriptTemplateController,
-    AsyncValue<List<ScriptTemplate>>>((ref) {
+    AsyncValue<List<ScriptTemplateDto>>>((ref) {
   final repository = ref.watch(scriptTemplateRepository);
   return ScriptTemplateController(repository);
 });
 
 class ScriptTemplateController
-    extends StateNotifier<AsyncValue<List<ScriptTemplate>>> {
+    extends StateNotifier<AsyncValue<List<ScriptTemplateDto>>> {
   BaseScriptTemplateRepository _repository;
 
   ScriptTemplateController(this._repository) : super(AsyncValue.loading()) {
@@ -27,7 +27,7 @@ class ScriptTemplateController
     }
   }
 
-  Future<ScriptTemplate> getScriptTemplate(String scriptTemplateId) async {
+  Future<ScriptTemplateDto> getScriptTemplate(String scriptTemplateId) async {
     final script = await _repository.retrieveScriptTemplate(scriptTemplateId);
     return script;
   }

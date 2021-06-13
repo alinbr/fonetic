@@ -1,11 +1,11 @@
-class Line {
+class LineDto {
   final String? id;
   final String text;
   final String note;
   final int order;
   final String character;
 
-  Line({
+  LineDto({
     this.id,
     required this.text,
     required this.note,
@@ -13,7 +13,7 @@ class Line {
     required this.character,
   });
 
-  Line.fromJson(Map<String, dynamic> json)
+  LineDto.fromJson(Map<String, dynamic> json)
       : this(
           text: json['text']! as String,
           note: json['note'] ?? ' ',

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fonetic/controllers/my_plays_controller.dart';
-import 'package:fonetic/models/script_template.dart';
-import 'package:fonetic/screens/my_plays_screen.dart';
-import 'package:fonetic/widgets/lines_preview.dart';
-import 'package:fonetic/widgets/screen_template_group_display.dart';
+import 'package:fonetic/application/my_plays_controller.dart';
+import 'package:fonetic/infrastructure/dtos/script_template_dto.dart';
+import 'package:fonetic/presentation/screens/my_plays_screen.dart';
+import 'package:fonetic/presentation/widgets/lines_preview.dart';
+import 'package:fonetic/presentation/widgets/screen_template_group_display.dart';
 
 class ScreenTemplateDetails extends ConsumerWidget {
-  final ScriptTemplate template;
+  final ScriptTemplateDto template;
 
   const ScreenTemplateDetails({Key? key, required this.template})
       : super(key: key);
@@ -72,7 +72,7 @@ class ScreenTemplateDetails extends ConsumerWidget {
 }
 
 class _DetailsList extends StatelessWidget {
-  final ScriptTemplate template;
+  final ScriptTemplateDto template;
 
   const _DetailsList({Key? key, required this.template}) : super(key: key);
 

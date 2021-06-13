@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fonetic/controllers/my_plays_controller.dart';
-import 'package:fonetic/controllers/script_template_controller.dart';
-import 'package:fonetic/widgets/discover_play_card.dart';
-import 'package:fonetic/widgets/loading_center.dart';
-import 'package:fonetic/widgets/my_play_card.dart';
+import 'package:fonetic/application/my_plays_controller.dart';
+import 'package:fonetic/application/script_template_controller.dart';
+import 'package:fonetic/presentation/widgets/discover_play_card.dart';
+import 'package:fonetic/presentation/widgets/loading_center.dart';
+import 'package:fonetic/presentation/widgets/my_play_card.dart';
 
 class HomeScreen extends StatelessWidget {
   @override

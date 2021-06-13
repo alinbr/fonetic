@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fonetic/controllers/my_plays_controller.dart';
-import 'package:fonetic/widgets/loading_center.dart';
+import 'package:fonetic/application/my_plays_controller.dart';
+import 'package:fonetic/presentation/widgets/loading_center.dart';
 
 class MyPlaysScreen extends ConsumerWidget {
   @override

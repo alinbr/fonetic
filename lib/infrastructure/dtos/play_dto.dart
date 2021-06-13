@@ -1,15 +1,16 @@
 import 'package:enum_to_string/enum_to_string.dart';
+import 'package:fonetic/infrastructure/dtos/character_dto.dart';
 
 enum PlayStatus { IN_PROGRESS, POST_PRODUCTION, FINISHED }
 
-class Play {
+class PlayDto {
   final String? id;
   final String producerId;
   final String scriptTemplateId;
   final PlayStatus playStatus;
   final List<Character> characters;
 
-  Play({
+  PlayDto({
     this.id,
     required this.producerId,
     required this.scriptTemplateId,
@@ -17,7 +18,7 @@ class Play {
     required this.characters,
   });
 
-  Play.fromJson(Map<String, Object?> json, String id)
+  PlayDto.fromJson(Map<String, Object?> json, String id)
       : this(
             id: id,
             producerId: json['producerId'] as String,
@@ -37,38 +38,17 @@ class Play {
     };
   }
 
-  Play copyWith({
+  PlayDto copyWith({
     producerId,
     scriptTemplateId,
     playStatus,
     characters,
   }) {
-    return Play(
+    return PlayDto(
         id: id,
         producerId: producerId ?? this.producerId,
         scriptTemplateId: scriptTemplateId ?? this.scriptTemplateId,
         playStatus: playStatus ?? this.playStatus,
         characters: characters ?? this.characters);
-  }
-}
-
-class Character {
-  final String? userId;
-  final String character;
-
-  Character(this.userId, this.character);
-
-  Map<String, Object?> toJson() {
-    return {'userId': userId, 'character': character};
-  }
-
-  Character.fromJson(Map<String, Object?> json)
-      : this(
-          json['userId'] as String?,
-          json['character'] as String,
-        );
-
-  Character copyWith({userId, character}) {
-    return Character(userId ?? this.userId, character ?? this.character);
   }
 }

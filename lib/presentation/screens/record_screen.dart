@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fonetic/controllers/play_controller.dart';
-import 'package:fonetic/controllers/script_template_controller.dart';
-import 'package:fonetic/models/script_template.dart';
-import 'package:fonetic/widgets/loading_center.dart';
+import 'package:fonetic/application/play_controller.dart';
+import 'package:fonetic/application/script_template_controller.dart';
+import 'package:fonetic/infrastructure/dtos/script_template_dto.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fonetic/presentation/widgets/loading_center.dart';
 
 class RecordScreen extends ConsumerWidget {
   final String playId;
@@ -21,7 +22,7 @@ class RecordScreen extends ConsumerWidget {
         ),
         body: play.when(
             data: (playData) {
-              return FutureBuilder<ScriptTemplate>(
+              return FutureBuilder<ScriptTemplateDto>(
                 future: context
                     .read(scriptTemplateProvider.notifier)
                     .getScriptTemplate(playData.scriptTemplateId),

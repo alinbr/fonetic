@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fonetic/controllers/my_plays_controller.dart';
-import 'package:fonetic/controllers/play_controller.dart';
-import 'package:fonetic/screens/my_plays_screen.dart';
+import 'package:fonetic/application/my_plays_controller.dart';
+import 'package:fonetic/application/play_controller.dart';
+import 'package:fonetic/presentation/screens/my_plays_screen.dart';
 
 class DeletePlayDialog extends ConsumerWidget {
   final String playId;

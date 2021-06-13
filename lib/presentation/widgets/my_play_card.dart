@@ -2,15 +2,14 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fonetic/controllers/my_plays_controller.dart';
-import 'package:fonetic/controllers/script_template_controller.dart';
-import 'package:fonetic/models/play.dart';
+import 'package:fonetic/application/script_template_controller.dart';
+import 'package:fonetic/infrastructure/dtos/play_dto.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fonetic/models/script_template.dart';
-import 'package:fonetic/screens/play_screen.dart';
+import 'package:fonetic/infrastructure/dtos/script_template_dto.dart';
+import 'package:fonetic/presentation/screens/play_screen.dart';
 
 class MyPlayCard extends ConsumerWidget {
-  final Play play;
+  final PlayDto play;
   final bool first;
 
   const MyPlayCard({Key? key, required this.play, required this.first})
@@ -21,7 +20,7 @@ class MyPlayCard extends ConsumerWidget {
     final scriptTemplate = watch(scriptTemplateProvider.notifier)
         .getScriptTemplate(play.scriptTemplateId);
 
-    return FutureBuilder<ScriptTemplate>(
+    return FutureBuilder<ScriptTemplateDto>(
         future: scriptTemplate,
         builder: (ctx, data) {
           if (data.connectionState == ConnectionState.done) {
