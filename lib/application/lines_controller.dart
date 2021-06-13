@@ -1,21 +1,21 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fonetic/infrastructure/dtos/line_dto.dart';
+import 'package:fonetic/infrastructure/dtos/line.dart';
+
 import 'package:fonetic/infrastructure/repositories/line_repository.dart';
 
 final linesProvider = StateNotifierProvider.family<LinesController,
-    AsyncValue<List<LineDto>>, String>((ref, String id) {
+    AsyncValue<List<Line>>, String>((ref, String scriptId) {
   final repository = ref.watch(lineRepository);
-  return LinesController(repository, id);
+  return LinesController(repository, scriptId);
 });
 
-class LinesController extends StateNotifier<AsyncValue<List<LineDto>>> {
+class LinesController extends StateNotifier<AsyncValue<List<Line>>> {
   BaseLineRepository _repository;
-  String _templateId;
+  String _scriptId;
 
-  LinesController(this._repository, this._templateId)
+  LinesController(this._repository, this._scriptId)
       : super(AsyncValue.loading()) {
-    retrieveLines(this._templateId);
+    retrieveLines(this._scriptId);
   }
 
   Future<void> retrieveLines(String id) async {

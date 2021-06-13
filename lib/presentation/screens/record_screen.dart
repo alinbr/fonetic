@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fonetic/application/play_controller.dart';
-import 'package:fonetic/application/script_template_controller.dart';
-import 'package:fonetic/infrastructure/dtos/script_template_dto.dart';
+import 'package:fonetic/application/script_controller.dart';
+import 'package:fonetic/infrastructure/dtos/script.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fonetic/presentation/widgets/loading_center.dart';
@@ -21,47 +21,35 @@ class RecordScreen extends ConsumerWidget {
           title: Text('Record play'),
         ),
         body: play.when(
-            data: (playData) {
-              return FutureBuilder<ScriptTemplateDto>(
-                future: context
-                    .read(scriptTemplateProvider.notifier)
-                    .getScriptTemplate(playData.scriptTemplateId),
-                builder: (context, scriptTemplate) {
-                  if (scriptTemplate.connectionState == ConnectionState.done) {
-                    return Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              Image(
-                                image: NetworkImage(scriptTemplate.data!.cover),
-                                width: 125.h,
-                                height: 125.h,
-                                fit: BoxFit.cover,
-                              ),
-                              SizedBox(
-                                width: 4.w,
-                              ),
-                              Expanded(
-                                child: Text(
-                                  scriptTemplate.data!.name,
-                                  style: Theme.of(context).textTheme.headline5,
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 2,
-                                ),
-                              )
-                            ],
+            data: (playData) => Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Image(
+                            image: NetworkImage(playData.cover),
+                            width: 125.h,
+                            height: 125.h,
+                            fit: BoxFit.cover,
                           ),
-                        ),
-                        _LineWidget(scriptTemplate.data!.id!)
-                      ],
-                    );
-                  } else
-                    return Container();
-                },
-              );
-            },
+                          SizedBox(
+                            width: 4.w,
+                          ),
+                          Expanded(
+                            child: Text(
+                              playData.name,
+                              style: Theme.of(context).textTheme.headline5,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    _LineWidget(playData.id!)
+                  ],
+                ),
             loading: () => LoadingCenter(),
             error: (_, __) => Container()));
   }

@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fonetic/application/my_plays_controller.dart';
-import 'package:fonetic/infrastructure/dtos/script_template_dto.dart';
+import 'package:fonetic/infrastructure/dtos/script.dart';
 import 'package:fonetic/presentation/screens/my_plays_screen.dart';
 import 'package:fonetic/presentation/widgets/lines_preview.dart';
-import 'package:fonetic/presentation/widgets/screen_template_group_display.dart';
+import 'package:fonetic/presentation/widgets/script_group_display.dart';
 
-class ScreenTemplateDetails extends ConsumerWidget {
-  final ScriptTemplateDto template;
+class ScriptDetailsScreen extends ConsumerWidget {
+  final Script script;
 
-  const ScreenTemplateDetails({Key? key, required this.template})
-      : super(key: key);
+  const ScriptDetailsScreen({Key? key, required this.script}) : super(key: key);
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
@@ -26,7 +25,7 @@ class ScreenTemplateDetails extends ConsumerWidget {
             flexibleSpace: FlexibleSpaceBar(
               title: SafeArea(
                 child: Text(
-                  template.name,
+                  script.name,
                   style: Theme.of(context).textTheme.headline6,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 4,
@@ -35,12 +34,12 @@ class ScreenTemplateDetails extends ConsumerWidget {
               collapseMode: CollapseMode.parallax,
               background: Opacity(
                 opacity: 0.4,
-                child: Image(
-                    image: NetworkImage(template.cover), fit: BoxFit.cover),
+                child:
+                    Image(image: NetworkImage(script.cover), fit: BoxFit.cover),
               ),
             ),
           ),
-          _DetailsList(template: template)
+          _DetailsList(script: script)
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -57,7 +56,7 @@ class ScreenTemplateDetails extends ConsumerWidget {
           style: Theme.of(context).textTheme.button,
         ),
         onPressed: () {
-          watch(myPlaysProvider('1').notifier).addPlay(template.id ?? '');
+          watch(myPlaysProvider('1').notifier).addPlay(script);
           Navigator.of(context).pushReplacement(
             MaterialPageRoute<void>(
               builder: (BuildContext context) {
@@ -72,9 +71,9 @@ class ScreenTemplateDetails extends ConsumerWidget {
 }
 
 class _DetailsList extends StatelessWidget {
-  final ScriptTemplateDto template;
+  final Script script;
 
-  const _DetailsList({Key? key, required this.template}) : super(key: key);
+  const _DetailsList({Key? key, required this.script}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -85,18 +84,18 @@ class _DetailsList extends StatelessWidget {
             height: 16.h,
             color: Theme.of(context).backgroundColor,
           ),
-          ScreenTemplateGroupDisplay(
+          ScriptGroupDisplay(
             title: 'Description',
-            content: template.description,
+            content: script.description,
           ),
-          ScreenTemplateGroupDisplay(
+          ScriptGroupDisplay(
             title: 'Characters',
-            content: template.characters
+            content: script.characters
                 .reduce((value, element) => value + ", " + element),
           ),
-          ScreenTemplateGroupDisplay(
+          ScriptGroupDisplay(
             title: 'Duration',
-            content: '${template.duration} min',
+            content: '${script.duration} min',
           ),
           Container(
             padding: EdgeInsets.all(8.h),
@@ -111,7 +110,7 @@ class _DetailsList extends StatelessWidget {
                 SizedBox(
                   height: 8.h,
                 ),
-                LinesPreview(templateId: template.id ?? ''),
+                LinesPreview(scriptId: script.id ?? ''),
               ],
             ),
           ),

@@ -1,15 +1,14 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
-import 'package:fonetic/infrastructure/dtos/script_template_dto.dart';
+import 'package:fonetic/infrastructure/dtos/script.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fonetic/presentation/screens/screen_template_details.dart';
+import 'package:fonetic/presentation/screens/script_details_screen.dart';
 
 class DiscoverPlayCard extends StatelessWidget {
-  final ScriptTemplateDto template;
+  final Script script;
   final bool first;
 
-  const DiscoverPlayCard(
-      {Key? key, required this.template, required this.first})
+  const DiscoverPlayCard({Key? key, required this.script, required this.first})
       : super(key: key);
 
   @override
@@ -26,20 +25,20 @@ class DiscoverPlayCard extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
                 image: DecorationImage(
-                    image: NetworkImage(template.cover), fit: BoxFit.cover)),
+                    image: NetworkImage(script.cover), fit: BoxFit.cover)),
           ),
           SizedBox(
             height: 12.h,
           ),
           Text(
-            template.name,
+            script.name,
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context)
                 .textTheme
                 .bodyText1!
                 .copyWith(fontWeight: FontWeight.bold),
           ),
-          Text(template.description,
+          Text(script.description,
               overflow: TextOverflow.ellipsis,
               maxLines: 2,
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
@@ -49,11 +48,11 @@ class DiscoverPlayCard extends StatelessWidget {
           ),
           Row(
             children: [
-              _PlayData(icon: Icons.schedule, text: '${template.duration} min'),
+              _PlayData(icon: Icons.schedule, text: '${script.duration} min'),
               SizedBox(
                 width: 8.w,
               ),
-              _PlayData(icon: Icons.people, text: '${template.roles}'),
+              _PlayData(icon: Icons.people, text: '${script.roles}'),
             ],
           )
         ],
@@ -68,7 +67,7 @@ class DiscoverPlayCard extends StatelessWidget {
           return closedContainer;
         },
         openBuilder: (ctx, action) {
-          return ScreenTemplateDetails(template: template);
+          return ScriptDetailsScreen(script: script);
         });
   }
 }

@@ -7,13 +7,13 @@ import 'package:fonetic/application/lines_controller.dart';
 import 'loading_center.dart';
 
 class LinesPreview extends ConsumerWidget {
-  final String templateId;
+  final String scriptId;
 
-  LinesPreview({required this.templateId});
+  LinesPreview({required this.scriptId});
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final linesListener = watch(linesProvider(templateId));
+    final linesListener = watch(linesProvider(scriptId));
 
     return linesListener.when(data: (data) {
       data.sort((a, b) => a.order.compareTo(b.order));

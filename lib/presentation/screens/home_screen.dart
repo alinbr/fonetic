@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fonetic/application/my_plays_controller.dart';
-import 'package:fonetic/application/script_template_controller.dart';
+import 'package:fonetic/application/script_controller.dart';
 import 'package:fonetic/presentation/widgets/discover_play_card.dart';
 import 'package:fonetic/presentation/widgets/loading_center.dart';
 import 'package:fonetic/presentation/widgets/my_play_card.dart';
@@ -73,7 +73,7 @@ class _Header extends StatelessWidget {
 class _DiscoverPlays extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final scriptTemplates = watch(scriptTemplateProvider);
+    final scripts = watch(scriptProvider);
 
     return Column(children: [
       Container(
@@ -88,14 +88,14 @@ class _DiscoverPlays extends ConsumerWidget {
       Container(
           height: 300.h,
           width: double.infinity,
-          child: scriptTemplates.when(
+          child: scripts.when(
               data: (data) {
                 return ListView.builder(
                     itemCount: data.length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (ctx, index) {
                       return DiscoverPlayCard(
-                          template: data[index], first: index == 0);
+                          script: data[index], first: index == 0);
                     });
               },
               loading: () => LoadingCenter(),

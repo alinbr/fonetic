@@ -1,4 +1,4 @@
-class ScriptTemplateDto {
+class Script {
   final String? id;
   final String name;
   final String description;
@@ -7,7 +7,7 @@ class ScriptTemplateDto {
   final String cover;
   final List<String> characters;
 
-  ScriptTemplateDto({
+  Script({
     this.id,
     required this.roles,
     required this.duration,
@@ -17,11 +17,7 @@ class ScriptTemplateDto {
     required this.characters,
   });
 
-  Map<String, Object?> toJson() {
-    return {'name': name};
-  }
-
-  ScriptTemplateDto.fromJson(String id, Map<String, dynamic> json)
+  Script.fromJson(String id, Map<String, dynamic> json)
       : this(
           id: id,
           name: json['name']! as String,
