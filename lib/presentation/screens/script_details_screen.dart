@@ -66,14 +66,17 @@ class _Header extends StatelessWidget {
                   width: double.infinity,
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: Container(
-                      height: 180.h,
-                      width: 180.h,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        image: DecorationImage(
-                          image: NetworkImage(script.cover),
-                          fit: BoxFit.cover,
+                    child: Hero(
+                      tag: '${script.id}',
+                      child: Container(
+                        height: 180.h,
+                        width: 180.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          image: DecorationImage(
+                            image: NetworkImage(script.cover),
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),
@@ -84,14 +87,17 @@ class _Header extends StatelessWidget {
                 child: Container(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      script.name,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .copyWith(fontSize: 18.sp),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 4,
+                    child: Hero(
+                      tag: '${script.name}',
+                      child: Text(
+                        script.name,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText1!
+                            .copyWith(fontSize: 18.sp),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 4,
+                      ),
                     ),
                   ),
                 ),
@@ -193,14 +199,11 @@ class ProduceButton extends ConsumerWidget {
           borderRadius: BorderRadius.circular(32.0),
         )),
       ),
-      child: Container(
-        width: 96.w,
-        height: 50.h,
-        child: Center(
-          child: Text(
-            'Produce',
-            style: Theme.of(context).textTheme.button,
-          ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 18),
+        child: Text(
+          'Produce',
+          style: Theme.of(context).textTheme.button,
         ),
       ),
       onPressed: () {

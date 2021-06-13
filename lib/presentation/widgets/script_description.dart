@@ -19,9 +19,12 @@ class ScriptGroupDisplay extends StatelessWidget {
           SizedBox(
             height: 4.h,
           ),
-          Text(
-            content,
-            style: Theme.of(context).textTheme.bodyText2,
+          Hero(
+            tag: '${content.substring(0, 10)}',
+            child: Text(
+              content,
+              style: Theme.of(context).textTheme.bodyText2,
+            ),
           )
         ],
       ),

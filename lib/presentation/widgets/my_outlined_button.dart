@@ -19,12 +19,16 @@ class MyOutlinedButton extends StatelessWidget {
           vertical: 16,
         ),
         child: Container(
-          width: 96.w,
-          height: 16.h,
+          width: 100.w,
           child: Center(
-            child: Text(
-              text,
-              style: Theme.of(context).textTheme.button,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 2,
+              ),
+              child: Text(
+                text,
+                style: Theme.of(context).textTheme.button,
+              ),
             ),
           ),
         ),

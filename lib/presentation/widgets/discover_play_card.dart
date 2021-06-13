@@ -1,4 +1,3 @@
-import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:fonetic/infrastructure/dtos/script.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,62 +12,71 @@ class DiscoverPlayCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final closedContainer = Container(
-      width: 200.h,
-      margin: EdgeInsets.only(right: 16.w, left: first ? 16.w : 0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: double.infinity,
-            height: 200.h,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                image: DecorationImage(
-                    image: NetworkImage(script.cover), fit: BoxFit.cover)),
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute<void>(
+            builder: (BuildContext context) {
+              return ScriptDetailsScreen(script: script);
+            },
           ),
-          SizedBox(
-            height: 12.h,
-          ),
-          Text(
-            script.name,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(context)
-                .textTheme
-                .bodyText1!
-                .copyWith(fontWeight: FontWeight.bold),
-          ),
-          Text(script.description,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 2,
-              style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                  color: Color(0xFFc7c1c5), fontWeight: FontWeight.w400)),
-          SizedBox(
-            height: 4.h,
-          ),
-          Row(
-            children: [
-              _PlayData(icon: Icons.schedule, text: '${script.duration} min'),
-              SizedBox(
-                width: 8.w,
+        );
+      },
+      child: Container(
+        width: 200.h,
+        margin: EdgeInsets.only(right: 16.w, left: first ? 16.w : 0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Hero(
+              tag: '${script.id}',
+              child: Container(
+                width: double.infinity,
+                height: 200.h,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    image: DecorationImage(
+                        image: NetworkImage(script.cover), fit: BoxFit.cover)),
               ),
-              _PlayData(icon: Icons.people, text: '${script.roles}'),
-            ],
-          )
-        ],
+            ),
+            SizedBox(
+              height: 12.h,
+            ),
+            Hero(
+              tag: '${script.name}',
+              child: Text(
+                script.name,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1!
+                    .copyWith(fontWeight: FontWeight.bold),
+              ),
+            ),
+            Hero(
+              tag: '${script.description.substring(0, 10)}',
+              child: Text(script.description,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      color: Color(0xFFc7c1c5), fontWeight: FontWeight.w400)),
+            ),
+            SizedBox(
+              height: 4.h,
+            ),
+            Row(
+              children: [
+                _PlayData(icon: Icons.schedule, text: '${script.duration} min'),
+                SizedBox(
+                  width: 8.w,
+                ),
+                _PlayData(icon: Icons.people, text: '${script.roles}'),
+              ],
+            )
+          ],
+        ),
       ),
     );
-
-    return OpenContainer(
-        transitionType: ContainerTransitionType.fade,
-        closedColor: Colors.transparent,
-        closedElevation: 0,
-        closedBuilder: (ctx, action) {
-          return closedContainer;
-        },
-        openBuilder: (ctx, action) {
-          return ScriptDetailsScreen(script: script);
-        });
   }
 }
 
