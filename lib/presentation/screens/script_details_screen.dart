@@ -87,17 +87,14 @@ class _Header extends StatelessWidget {
                 child: Container(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Hero(
-                      tag: '${script.name}',
-                      child: Text(
-                        script.name,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText1!
-                            .copyWith(fontSize: 18.sp),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 4,
-                      ),
+                    child: Text(
+                      script.name,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1!
+                          .copyWith(fontSize: 18.sp),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 4,
                     ),
                   ),
                 ),

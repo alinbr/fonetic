@@ -42,25 +42,19 @@ class DiscoverPlayCard extends StatelessWidget {
             SizedBox(
               height: 12.h,
             ),
-            Hero(
-              tag: '${script.name}',
-              child: Text(
-                script.name,
+            Text(
+              script.name,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyText1!
+                  .copyWith(fontWeight: FontWeight.bold),
+            ),
+            Text(script.description,
                 overflow: TextOverflow.ellipsis,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText1!
-                    .copyWith(fontWeight: FontWeight.bold),
-              ),
-            ),
-            Hero(
-              tag: '${script.description.substring(0, 10)}',
-              child: Text(script.description,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                      color: Color(0xFFc7c1c5), fontWeight: FontWeight.w400)),
-            ),
+                maxLines: 2,
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                    color: Color(0xFFc7c1c5), fontWeight: FontWeight.w400)),
             SizedBox(
               height: 4.h,
             ),
