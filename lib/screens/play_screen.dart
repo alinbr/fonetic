@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fonetic/controllers/play_controller.dart';
 import 'package:fonetic/controllers/script_template_controller.dart';
 import 'package:fonetic/models/script_template.dart';
+import 'package:fonetic/screens/record_screen.dart';
 import 'package:fonetic/widgets/delete_play_dialog.dart';
 import 'package:fonetic/widgets/loading_center.dart';
 
@@ -75,7 +76,22 @@ class PlayScreen extends ConsumerWidget {
                                   );
                                 },
                                 itemCount: play.characters.length,
-                              )
+                              ),
+                              ElevatedButton(
+                                  onPressed: context
+                                          .read(playProvider(_playId).notifier)
+                                          .isRecordable(play)
+                                      ? () {
+                                          Navigator.of(context).pushReplacement(
+                                              MaterialPageRoute<void>(
+                                            builder: (BuildContext context) {
+                                              return RecordScreen(
+                                                  playId: play.id!);
+                                            },
+                                          ));
+                                        }
+                                      : null,
+                                  child: Text('Start producing'))
                             ],
                           ),
                         ),

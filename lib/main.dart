@@ -46,11 +46,6 @@ class MyApp extends StatelessWidget {
               color: const Color(0xFFBFBFBF),
             ),
           ),
-          pageTransitionsTheme: const PageTransitionsTheme(
-            builders: <TargetPlatform, PageTransitionsBuilder>{
-              TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
-            },
-          ),
         ),
         themeMode: ThemeMode.dark,
         home: HomeScreen(),

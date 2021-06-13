@@ -51,4 +51,10 @@ class PlayController extends StateNotifier<AsyncValue<Play>> {
 
     state = AsyncValue.data(newPlay);
   }
+
+  bool isRecordable(Play play) {
+    return !play.characters
+        .where((element) => element.userId == null)
+        .isNotEmpty;
+  }
 }
