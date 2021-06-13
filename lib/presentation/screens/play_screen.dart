@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fonetic/application/play_controller.dart';
-import 'package:fonetic/application/script_controller.dart';
-import 'package:fonetic/infrastructure/dtos/script.dart';
 import 'package:fonetic/presentation/screens/record_screen.dart';
 import 'package:fonetic/presentation/widgets/delete_play_dialog.dart';
-import 'package:fonetic/presentation/widgets/loading_center.dart';
+import 'package:fonetic/presentation/widgets/core/loading_center.dart';
 
 class PlayScreen extends ConsumerWidget {
   final String _playId;

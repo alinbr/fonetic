@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fonetic/application/lines_controller.dart';
 
-import 'loading_center.dart';
+import '../core/loading_center.dart';
 
 class LinesPreview extends ConsumerWidget {
   final String scriptId;

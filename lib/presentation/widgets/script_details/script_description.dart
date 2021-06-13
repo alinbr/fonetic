@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ScriptGroupDisplay extends StatelessWidget {
+class ScriptDescription extends StatelessWidget {
   final String title;
   final String content;
 
-  const ScriptGroupDisplay(
+  const ScriptDescription(
       {Key? key, required this.title, required this.content})
       : super(key: key);
 

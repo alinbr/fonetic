@@ -4,7 +4,7 @@ import 'package:fonetic/application/play_controller.dart';
 import 'package:fonetic/application/script_controller.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fonetic/presentation/widgets/loading_center.dart';
+import 'package:fonetic/presentation/widgets/core/loading_center.dart';
 
 class RecordScreen extends ConsumerWidget {
   final String playId;

@@ -33,7 +33,6 @@ class MyPlayCard extends StatelessWidget {
                 height: 150.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
-                  color: const Color(0xFF242526),
                   image: DecorationImage(
                     image: NetworkImage(play.cover),
                     fit: BoxFit.cover,
