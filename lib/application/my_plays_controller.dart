@@ -34,12 +34,15 @@ class MyPlaysController extends StateNotifier<AsyncValue<List<Play>>> {
   }
 
   void addPlay(Script script) async {
+    var characters =
+        script.characters.map((e) => Character(character: e)).toList();
+    characters.sort((c1, c2) => c1.character.compareTo(c2.character));
+
     Play play = Play(
         producerId: '1',
         scriptId: script.id!,
         playStatus: PlayStatus.IN_PROGRESS,
-        characters:
-            script.characters.map((e) => Character(character: e)).toList(),
+        characters: characters,
         cover: script.cover,
         roles: script.roles,
         duration: script.duration,

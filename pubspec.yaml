@@ -26,9 +26,13 @@ dependencies:
   cloud_firestore: ^2.2.1
   enum_to_string: ^2.0.1
   firebase_core: ^1.2.1
+  firebase_storage: ^9.0.0
   flutter_riverpod: ^0.14.0+3
   flutter_screenutil: ^5.0.0+2
+  flutter_sound: ^8.1.9
   modal_bottom_sheet: ^2.0.0
+  path_provider: ^2.0.2
+  permission_handler: ^8.1.2
 
 dev_dependencies:
   flutter_test:

@@ -45,6 +45,7 @@ class PlayController extends StateNotifier<AsyncValue<Play>> {
     var newCharacters = List<Character>.from(play.characters);
     newCharacters.removeWhere((element) => element.character == character);
     newCharacters.add(newCharacter);
+    newCharacters.sort((c1, c2) => c1.character.compareTo(c2.character));
 
     final newPlay = play.copyWith(characters: newCharacters);
 
