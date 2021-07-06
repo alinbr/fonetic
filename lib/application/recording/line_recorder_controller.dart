@@ -12,7 +12,7 @@ final lineRecorderProvider =
   return LineRecorderController();
 });
 
-enum RecordingState { READY_TO_RECORD, RECORDING, RECORDED, PLAYING }
+enum RecordingState { READY_TO_RECORD, RECORDING, RECORDED, PLAYING, UPLOADING }
 
 class LineRecorderController extends StateNotifier<RecordingState> {
   late FlutterSoundRecorder _recorder;
@@ -72,6 +72,8 @@ class LineRecorderController extends StateNotifier<RecordingState> {
   Future<String> uploadFile(playId, lineOrder) async {
     Directory tempDir = await getTemporaryDirectory();
     File outputFile = File('${tempDir.path}/flutter_sound-tmp.aac');
+
+    state = RecordingState.UPLOADING;
 
     var snapshot = await FirebaseStorage.instance
         .ref()

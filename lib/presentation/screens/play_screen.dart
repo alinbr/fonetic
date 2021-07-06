@@ -111,12 +111,17 @@ class PlayScreen extends ConsumerWidget {
                       Center(
                         child: ElevatedButton(
                           style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all<Color>(Colors.teal),
+                            backgroundColor: context
+                                    .read(playProvider.notifier)
+                                    .isRecordable(play)
+                                ? MaterialStateProperty.all<Color>(Colors.teal)
+                                : MaterialStateProperty.all<Color>(Colors.grey),
                             shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(32.0),
-                            )),
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(32.0),
+                              ),
+                            ),
                           ),
                           child: Padding(
                             padding: EdgeInsets.symmetric(

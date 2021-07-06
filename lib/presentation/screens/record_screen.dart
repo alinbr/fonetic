@@ -5,7 +5,7 @@ import 'package:fonetic/application/play_controller.dart';
 import 'package:fonetic/presentation/widgets/core/loading_center.dart';
 import 'package:fonetic/presentation/widgets/record/controls.dart';
 import 'package:fonetic/presentation/widgets/record/header.dart';
-import 'package:fonetic/presentation/widgets/record/line.dart';
+import 'package:fonetic/presentation/widgets/record/recording_lines.dart';
 
 class RecordScreen extends ConsumerWidget {
   final String playId;
