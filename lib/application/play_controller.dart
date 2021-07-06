@@ -1,5 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fonetic/application/current_user.dart';
+import 'package:fonetic/application/lines_controller.dart';
+import 'package:fonetic/application/recording/recorded_lines_controller.dart';
 import 'package:fonetic/infrastructure/dtos/character.dart';
 import 'package:fonetic/infrastructure/dtos/play.dart';
 import 'package:fonetic/infrastructure/repositories/play_repository.dart';
@@ -12,17 +14,19 @@ final playProvider =
   final repository = ref.watch(playRepository);
   final currentUser = ref.watch(currentUserProvider);
 
-  return PlayController(repository, playId, currentUser);
+  return PlayController(ref.read, repository, playId, currentUser);
 });
 
 class PlayController extends StateNotifier<AsyncValue<Play>> {
+  final Reader _read;
+
   BasePlayRepository _repository;
 
   final String _playId;
 
   final String _currentUser;
 
-  PlayController(this._repository, this._playId, this._currentUser)
+  PlayController(this._read, this._repository, this._playId, this._currentUser)
       : super(AsyncValue.loading()) {
     retrievePlay();
   }
@@ -75,5 +79,11 @@ class PlayController extends StateNotifier<AsyncValue<Play>> {
     return !play.characters
         .where((element) => element.userId == null)
         .isNotEmpty;
+  }
+
+  Future<void> changePlayStatus(PlayStatus newStatus) async {
+    final newPlay = state.data!.value.copyWith(playStatus: newStatus);
+    await _repository.updatePlay(newPlay);
+    state = AsyncValue.data(newPlay);
   }
 }

@@ -25,11 +25,13 @@ class RecordedLinesController extends StateNotifier<List<RecordedLine>> {
   }
 
   Future<void> addRecordedLine(RecordedLine line) async {
+    print("add recording line");
     await _repository.addRecordedLine(_playId, line);
     getRecordedLines();
   }
 
   Future<void> getRecordedLines() async {
+    print("refreshing recorded lines");
     state = await _repository.getRecordedLine(_playId);
   }
 }

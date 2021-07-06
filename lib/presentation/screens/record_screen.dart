@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fonetic/application/monitor_play_status.dart';
 import 'package:fonetic/application/play_controller.dart';
+import 'package:fonetic/infrastructure/dtos/play.dart';
 
 import 'package:fonetic/presentation/widgets/core/loading_center.dart';
 import 'package:fonetic/presentation/widgets/record/controls.dart';
@@ -16,21 +18,37 @@ class RecordScreen extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     final play = watch(playProvider);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Record play'),
-      ),
-      body: play.when(
-          data: (playData) => Column(
-                children: [
-                  Header(play: playData),
-                  RecordingLines(playData),
-                ],
-              ),
-          loading: () => LoadingCenter(),
-          error: (_, __) => Container()),
-      floatingActionButton: Controls(playId),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    watch(monitorPlayStatusProvider);
+
+    return play.when(
+      data: (playData) {
+        if (playData.playStatus == PlayStatus.IN_PROGRESS)
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('Record play'),
+            ),
+            body: Column(
+              children: [
+                Header(play: playData),
+                RecordingLines(playData),
+              ],
+            ),
+            floatingActionButton: Controls(playId),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerFloat,
+          );
+        if (playData.playStatus == PlayStatus.POST_PRODUCTION)
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('Post production'),
+            ),
+            body: Text("Your play is ready for post production"),
+          );
+
+        return Container();
+      },
+      loading: () => LoadingCenter(),
+      error: (_, __) => Container(),
     );
   }
 }

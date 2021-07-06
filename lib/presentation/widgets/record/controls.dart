@@ -4,7 +4,6 @@ import 'package:fonetic/application/recording/displaying_lines_controller.dart';
 import 'package:fonetic/application/recording/line_recorder_controller.dart';
 import 'package:fonetic/application/recording/recorded_lines_controller.dart';
 import 'package:fonetic/infrastructure/dtos/recorded_line.dart';
-import 'package:fonetic/presentation/widgets/core/loading_center.dart';
 import 'package:fonetic/presentation/widgets/record/play_button.dart';
 import 'package:fonetic/presentation/widgets/record/record_type_button.dart';
 import 'package:fonetic/presentation/widgets/record/send_button.dart';
@@ -63,6 +62,7 @@ class Controls extends ConsumerWidget {
 
         await context.read(recordedLinesProvider.notifier).addRecordedLine(
             RecordedLine(order: lineOrder, audioLink: fileUrl));
+
         context.read(lineRecorderProvider.notifier).resetState();
       },
     );

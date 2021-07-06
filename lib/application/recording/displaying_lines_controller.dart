@@ -8,7 +8,7 @@ import 'package:collection/collection.dart';
 final displayingLinesProvider =
     StateProvider<AsyncValue<DisplayingLines>>((ref) {
   final scriptId = ref.watch(playProvider).data?.value.scriptId;
-  print("Scriptid: ${scriptId}");
+  print("Scriptid: $scriptId");
   final recordedLinesOrders = ref.watch(recordedLinesOrdersProvider);
 
   final userCharacters = ref.watch(playProvider.notifier).getUserCharacters();

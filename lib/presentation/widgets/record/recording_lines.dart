@@ -16,9 +16,7 @@ class RecordingLines extends ConsumerWidget {
     final displayLines = watch(displayingLinesProvider).state;
 
     return displayLines.when(data: (data) {
-      if (data.currentLine == null)
-        return Container(child: Text('No next line'));
-
+      if (data.currentLine == null) return LoadingCenter();
       return Expanded(
         child: SingleChildScrollView(
           child: Padding(
