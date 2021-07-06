@@ -5,13 +5,9 @@ import 'package:fonetic/application/play_controller.dart';
 import 'package:fonetic/presentation/screens/my_plays_screen.dart';
 
 class DeletePlayDialog extends ConsumerWidget {
-  final String playId;
-
-  DeletePlayDialog(this.playId);
-
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final playNotifier = watch(playProvider(playId).notifier);
+    final playNotifier = watch(playProvider.notifier);
 
     return AlertDialog(
       title: Text('Delete play'),

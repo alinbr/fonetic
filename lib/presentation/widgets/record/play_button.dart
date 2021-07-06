@@ -16,6 +16,7 @@ class PlayButton extends StatelessWidget {
         child: Icon(
           Icons.play_arrow_sharp,
           color: Colors.green,
+          size: 48.h,
         ),
         onPressed: callBack);
   }

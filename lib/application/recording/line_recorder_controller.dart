@@ -18,8 +18,6 @@ class LineRecorderController extends StateNotifier<RecordingState> {
   late FlutterSoundRecorder _recorder;
   late FlutterSoundPlayer _player;
 
-  late int lineOrder;
-
   LineRecorderController() : super(RecordingState.READY_TO_RECORD) {
     _player = FlutterSoundPlayer();
     _recorder = FlutterSoundRecorder();
@@ -28,14 +26,6 @@ class LineRecorderController extends StateNotifier<RecordingState> {
   Future<void> init() async {
     await openTheRecorder();
     await _player.openAudioSession();
-  }
-
-  void setLineOrder(int order) {
-    lineOrder = order;
-  }
-
-  int getLineOrder() {
-    return lineOrder;
   }
 
   void startRecording() async {
@@ -79,7 +69,7 @@ class LineRecorderController extends StateNotifier<RecordingState> {
     await _recorder.openAudioSession();
   }
 
-  Future<String> uploadFile(playId) async {
+  Future<String> uploadFile(playId, lineOrder) async {
     Directory tempDir = await getTemporaryDirectory();
     File outputFile = File('${tempDir.path}/flutter_sound-tmp.aac');
 

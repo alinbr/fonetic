@@ -1,9 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:fonetic/application/play_controller.dart';
 import 'package:fonetic/infrastructure/dtos/play.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fonetic/presentation/screens/play_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MyPlayCard extends StatelessWidget {
   final Play play;
@@ -15,12 +17,13 @@ class MyPlayCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => {
+      onTap: () {
+        context.read(currentPlayIdProvider).state = play.id;
         Navigator.of(context).push(MaterialPageRoute<void>(
           builder: (BuildContext context) {
-            return PlayScreen(play.id!);
+            return PlayScreen();
           },
-        ))
+        ));
       },
       child: Container(
           width: 150.h,

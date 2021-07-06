@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class RecordButton extends StatelessWidget {
+class RecordTypeButton extends StatelessWidget {
   final VoidCallback callBack;
+  final Icon icon;
+  final String text;
 
-  const RecordButton({Key? key, required this.callBack}) : super(key: key);
+  const RecordTypeButton(
+      {Key? key,
+      required this.callBack,
+      required this.icon,
+      required this.text})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,18 +24,15 @@ class RecordButton extends StatelessWidget {
           )),
         ),
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 8.h),
+          padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 8.h),
           child: Row(
             children: [
-              Icon(
-                Icons.fiber_manual_record,
-                color: Colors.red,
-              ),
+              icon,
               SizedBox(
                 width: 4.w,
               ),
               Text(
-                'RECORD',
+                text,
                 style: Theme.of(context).textTheme.button,
               ),
             ],

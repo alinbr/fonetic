@@ -8,13 +8,11 @@ import 'package:fonetic/presentation/widgets/core/loading_center.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PlayScreen extends ConsumerWidget {
-  final String _playId;
-
-  PlayScreen(this._playId);
+  PlayScreen();
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final play = watch(playProvider(_playId));
+    final play = watch(playProvider);
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -25,8 +23,7 @@ class PlayScreen extends ConsumerWidget {
           IconButton(
               onPressed: () {
                 showDialog(
-                    context: context,
-                    builder: (context) => DeletePlayDialog(_playId));
+                    context: context, builder: (context) => DeletePlayDialog());
               },
               icon: Icon(Icons.delete))
         ],
@@ -96,8 +93,7 @@ class PlayScreen extends ConsumerWidget {
                                                 onPressed: () async {
                                                   context
                                                       .read(
-                                                          playProvider(_playId)
-                                                              .notifier)
+                                                          playProvider.notifier)
                                                       .assignCharacter(
                                                           play.characters[index]
                                                               .character,
@@ -131,7 +127,7 @@ class PlayScreen extends ConsumerWidget {
                             ),
                           ),
                           onPressed: context
-                                  .read(playProvider(_playId).notifier)
+                                  .read(playProvider.notifier)
                                   .isRecordable(play)
                               ? () {
                                   Navigator.of(context)

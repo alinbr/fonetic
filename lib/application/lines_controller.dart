@@ -20,9 +20,11 @@ class LinesController extends StateNotifier<AsyncValue<List<Line>>> {
 
   Future<void> retrieveLines(String id) async {
     state = AsyncValue.loading();
-
+    print("Getting lines from db");
     try {
       final lines = await _repository.retrieveLines(id);
+      lines.sort((a, b) => a.order.compareTo(b.order));
+      print(lines.length);
       state = AsyncValue.data(lines);
     } on Exception catch (e, st) {
       state = AsyncValue.error(e, st);

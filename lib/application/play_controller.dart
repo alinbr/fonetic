@@ -1,14 +1,18 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fonetic/application/current_user.dart';
 import 'package:fonetic/infrastructure/dtos/character.dart';
 import 'package:fonetic/infrastructure/dtos/play.dart';
 import 'package:fonetic/infrastructure/repositories/play_repository.dart';
 
-final playProvider =
-    StateNotifierProvider.family<PlayController, AsyncValue<Play>, String>(
-        (ref, playId) {
-  final repository = ref.watch(playRepository);
+final currentPlayIdProvider = StateProvider<String?>((ref) => null);
 
-  return PlayController(repository, playId);
+final playProvider =
+    StateNotifierProvider<PlayController, AsyncValue<Play>>((ref) {
+  final playId = ref.watch(currentPlayIdProvider).state!;
+  final repository = ref.watch(playRepository);
+  final currentUser = ref.watch(currentUserProvider);
+
+  return PlayController(repository, playId, currentUser);
 });
 
 class PlayController extends StateNotifier<AsyncValue<Play>> {
@@ -16,7 +20,10 @@ class PlayController extends StateNotifier<AsyncValue<Play>> {
 
   final String _playId;
 
-  PlayController(this._repository, this._playId) : super(AsyncValue.loading()) {
+  final String _currentUser;
+
+  PlayController(this._repository, this._playId, this._currentUser)
+      : super(AsyncValue.loading()) {
     retrievePlay();
   }
 
@@ -52,6 +59,16 @@ class PlayController extends StateNotifier<AsyncValue<Play>> {
     await _repository.updatePlay(newPlay);
 
     state = AsyncValue.data(newPlay);
+  }
+
+  List<String> getUserCharacters() {
+    if (state.data != null) {
+      return state.data!.value.characters
+          .where((element) => element.userId == _currentUser)
+          .map((e) => e.character)
+          .toList();
+    }
+    return List.empty();
   }
 
   bool isRecordable(Play play) {

@@ -18,7 +18,7 @@ class SendButton extends StatelessWidget {
           )),
         ),
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 8.h),
+          padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 8.h),
           child: Text(
             'Send line',
             style: Theme.of(context)

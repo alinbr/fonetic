@@ -16,6 +16,7 @@ class StopPlayButton extends StatelessWidget {
         child: Icon(
           Icons.stop,
           color: Colors.red,
+          size: 48.h,
         ),
         onPressed: callBack);
   }
