@@ -6,7 +6,7 @@ import 'package:fonetic/infrastructure/dtos/play.dart';
 
 import 'package:fonetic/presentation/widgets/core/loading_center.dart';
 import 'package:fonetic/presentation/widgets/record/controls.dart';
-import 'package:fonetic/presentation/widgets/record/header.dart';
+import 'package:fonetic/presentation/widgets/core/header.dart';
 import 'package:fonetic/presentation/widgets/record/recording_lines.dart';
 
 class RecordScreen extends ConsumerWidget {

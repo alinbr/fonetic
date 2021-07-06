@@ -14,7 +14,7 @@ class Header extends StatelessWidget {
         Flexible(
           child: Container(
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(8.0),
               child: Container(
                 height: 100.h,
                 width: 100.h,
