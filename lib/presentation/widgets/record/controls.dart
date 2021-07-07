@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fonetic/application/recording/displaying_lines_controller.dart';
+import 'package:fonetic/application/play_controller.dart';
 import 'package:fonetic/application/recording/line_recorder_controller.dart';
-import 'package:fonetic/application/recording/recorded_lines_controller.dart';
-import 'package:fonetic/infrastructure/dtos/recorded_line.dart';
 import 'package:fonetic/presentation/widgets/record/play_button.dart';
 import 'package:fonetic/presentation/widgets/record/record_type_button.dart';
 import 'package:fonetic/presentation/widgets/record/send_button.dart';
@@ -48,22 +46,7 @@ class Controls extends ConsumerWidget {
 
     var _sendRecordingButton = SendButton(
       callBack: () async {
-        final lineOrder = context
-            .read(displayingLinesProvider)
-            .state
-            .data!
-            .value
-            .currentLine!
-            .order;
-
-        String fileUrl = await context
-            .read(lineRecorderProvider.notifier)
-            .uploadFile(playId, lineOrder);
-
-        await context.read(recordedLinesProvider.notifier).addRecordedLine(
-            RecordedLine(order: lineOrder, audioLink: fileUrl));
-
-        context.read(lineRecorderProvider.notifier).resetState();
+        context.read(playProvider.notifier).sendRecordedLine();
       },
     );
 

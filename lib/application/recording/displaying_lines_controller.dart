@@ -5,39 +5,53 @@ import 'package:fonetic/application/recording/recorded_lines_controller.dart';
 import 'package:fonetic/infrastructure/dtos/line.dart';
 import 'package:collection/collection.dart';
 
-final displayingLinesProvider =
-    StateProvider<AsyncValue<DisplayingLines>>((ref) {
-  final scriptId = ref.watch(playProvider).data?.value.scriptId;
-  print("Scriptid: $scriptId");
+final displayingLinesProvider = StateNotifierProvider.family<
+    DisplayingLinesController,
+    AsyncValue<DisplayingLines>,
+    String?>((ref, scriptId) {
+  final lines = ref
+      .watch(linesProvider(scriptId!))
+      .maybeMap(data: (data) => data.value, orElse: () => List<Line>.empty());
   final recordedLinesOrders = ref.watch(recordedLinesOrdersProvider);
-
-  final userCharacters = ref.watch(playProvider.notifier).getUserCharacters();
-
-  final lines = ref.watch(linesProvider(scriptId!));
-
-  print(lines);
-
-  return lines.when(
-      data: (data) {
-        final currentLine = data.firstWhereOrNull((element) =>
-            userCharacters.contains(element.character) &&
-            !recordedLinesOrders.contains(element.order));
-        if (currentLine == null) return AsyncValue.data(DisplayingLines());
-
-        final previousLine = data.firstWhereOrNull(
-            (element) => element.order == currentLine.order - 1);
-        final nextLine = data.firstWhereOrNull(
-            (element) => element.order == currentLine.order + 1);
-
-        return AsyncValue.data(DisplayingLines(
-          previousLine: previousLine,
-          currentLine: currentLine,
-          nextLine: nextLine,
-        ));
-      },
-      loading: () => AsyncValue.loading(),
-      error: (e, st) => AsyncValue.error(e, st));
+  return DisplayingLinesController(ref.read, lines, recordedLinesOrders);
 });
+
+class DisplayingLinesController
+    extends StateNotifier<AsyncValue<DisplayingLines>> {
+  final Reader _read;
+
+  final List<Line> _lines;
+  final List<int> _recordedLinesOrders;
+
+  DisplayingLinesController(this._read, this._lines, this._recordedLinesOrders)
+      : super(AsyncValue.loading()) {
+    getDisplayingLines();
+  }
+
+  void getDisplayingLines() {
+    state = AsyncValue.loading();
+
+    final userCharacters = _read(playProvider.notifier).getUserCharacters();
+
+    final currentLine = _lines.firstWhereOrNull((element) =>
+        userCharacters.contains(element.character) &&
+        !_recordedLinesOrders.contains(element.order));
+    if (currentLine == null)
+      state = AsyncValue.data(DisplayingLines());
+    else {
+      final previousLine = _lines.firstWhereOrNull(
+          (element) => element.order == currentLine.order - 1);
+      final nextLine = _lines.firstWhereOrNull(
+          (element) => element.order == currentLine.order + 1);
+
+      state = AsyncValue.data(DisplayingLines(
+        previousLine: previousLine,
+        currentLine: currentLine,
+        nextLine: nextLine,
+      ));
+    }
+  }
+}
 
 class DisplayingLines {
   final Line? previousLine;

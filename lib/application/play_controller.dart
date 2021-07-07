@@ -1,12 +1,22 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fonetic/application/current_user.dart';
 import 'package:fonetic/application/lines_controller.dart';
+import 'package:fonetic/application/recording/displaying_lines_controller.dart';
 import 'package:fonetic/application/recording/recorded_lines_controller.dart';
 import 'package:fonetic/infrastructure/dtos/character.dart';
 import 'package:fonetic/infrastructure/dtos/play.dart';
+import 'package:fonetic/infrastructure/dtos/recorded_line.dart';
 import 'package:fonetic/infrastructure/repositories/play_repository.dart';
 
+import 'recording/line_recorder_controller.dart';
+
 final currentPlayIdProvider = StateProvider<String?>((ref) => null);
+
+final currentScriptIdProvider = Provider<String?>((ref) {
+  return ref
+      .watch(playProvider)
+      .maybeMap(data: (data) => data.value.scriptId, orElse: () {});
+});
 
 final playProvider =
     StateNotifierProvider<PlayController, AsyncValue<Play>>((ref) {
@@ -18,13 +28,13 @@ final playProvider =
 });
 
 class PlayController extends StateNotifier<AsyncValue<Play>> {
-  final Reader _read;
-
   BasePlayRepository _repository;
 
   final String _playId;
 
   final String _currentUser;
+
+  final Reader _read;
 
   PlayController(this._read, this._repository, this._playId, this._currentUser)
       : super(AsyncValue.loading()) {
@@ -77,13 +87,45 @@ class PlayController extends StateNotifier<AsyncValue<Play>> {
 
   bool isRecordable(Play play) {
     return !play.characters
-        .where((element) => element.userId == null)
-        .isNotEmpty;
+            .where((element) => element.userId == null)
+            .isNotEmpty &&
+        play.playStatus == PlayStatus.IN_PROGRESS;
   }
 
   Future<void> changePlayStatus(PlayStatus newStatus) async {
+    print("changePlayStatus :: start");
     final newPlay = state.data!.value.copyWith(playStatus: newStatus);
     await _repository.updatePlay(newPlay);
     state = AsyncValue.data(newPlay);
+    print("changePlayStatus :: end");
+  }
+
+  Future<void> sendRecordedLine() async {
+    final lineOrder = _read(displayingLinesProvider(state.data!.value.scriptId))
+        .maybeMap(data: (data) => data.value.currentLine!.order, orElse: () {});
+
+    String fileUrl = await _read(lineRecorderProvider.notifier)
+        .uploadFile(_playId, lineOrder);
+
+    await _read(recordedLinesProvider.notifier)
+        .addRecordedLine(RecordedLine(order: lineOrder!, audioLink: fileUrl));
+
+    _read(lineRecorderProvider.notifier).resetState();
+
+    state.whenData((playData) {
+      String scriptId = playData.scriptId;
+
+      final script = _read(linesProvider(scriptId));
+
+      script.whenData((scriptData) {
+        final scriptLines = scriptData.length;
+        final recordedLines = _read(recordedLinesProvider).length;
+
+        if (scriptLines == recordedLines &&
+            playData.playStatus == PlayStatus.IN_PROGRESS) {
+          changePlayStatus(PlayStatus.POST_PRODUCTION);
+        }
+      });
+    });
   }
 }

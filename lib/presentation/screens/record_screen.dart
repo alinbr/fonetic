@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fonetic/application/monitor_play_status.dart';
 import 'package:fonetic/application/play_controller.dart';
 import 'package:fonetic/infrastructure/dtos/play.dart';
+import 'package:fonetic/presentation/screens/post_production_screen.dart';
 
 import 'package:fonetic/presentation/widgets/core/loading_center.dart';
 import 'package:fonetic/presentation/widgets/record/controls.dart';
@@ -18,10 +18,9 @@ class RecordScreen extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     final play = watch(playProvider);
 
-    watch(monitorPlayStatusProvider);
-
     return play.when(
       data: (playData) {
+        print(playData.playStatus);
         if (playData.playStatus == PlayStatus.IN_PROGRESS)
           return Scaffold(
             appBar: AppBar(
@@ -37,15 +36,10 @@ class RecordScreen extends ConsumerWidget {
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,
           );
-        if (playData.playStatus == PlayStatus.POST_PRODUCTION)
-          return Scaffold(
-            appBar: AppBar(
-              title: Text('Post production'),
-            ),
-            body: Text("Your play is ready for post production"),
-          );
-
-        return Container();
+        if (playData.playStatus == PlayStatus.POST_PRODUCTION) {
+          return PostProductionScreen();
+        }
+        return LoadingCenter();
       },
       loading: () => LoadingCenter(),
       error: (_, __) => Container(),

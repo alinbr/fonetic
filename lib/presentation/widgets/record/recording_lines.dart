@@ -13,7 +13,7 @@ class RecordingLines extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final displayLines = watch(displayingLinesProvider).state;
+    final displayLines = watch(displayingLinesProvider(play.scriptId));
 
     return displayLines.when(data: (data) {
       if (data.currentLine == null) return LoadingCenter();

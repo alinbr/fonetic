@@ -160,6 +160,16 @@ class PlayScreen extends ConsumerWidget {
                               ),
                             ],
                           )),
+                      ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context)
+                                .pushReplacement(MaterialPageRoute<void>(
+                              builder: (BuildContext context) {
+                                return RecordScreen(playId: play.id!);
+                              },
+                            ));
+                          },
+                          child: Text("go to post production"))
                     ],
                   ),
                 );
