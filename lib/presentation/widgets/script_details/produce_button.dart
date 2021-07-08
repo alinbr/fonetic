@@ -18,7 +18,7 @@ class ProduceButton extends StatelessWidget {
           )),
         ),
         child: Padding(
-          padding: EdgeInsets.all(16.h),
+          padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 4.h),
           child: Text(
             'Record it!',
             style: Theme.of(context)

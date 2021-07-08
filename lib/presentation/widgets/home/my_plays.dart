@@ -12,7 +12,7 @@ class MyPlays extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: [
       Container(
-        padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 16.h),
+        padding: EdgeInsets.only(bottom: 16.h, left: 16.h, right: 16.h),
         width: double.infinity,
         child: Text(
           'My plays',

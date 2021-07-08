@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fonetic/application/my_plays_controller.dart';
 import 'package:fonetic/infrastructure/dtos/script.dart';
-import 'package:fonetic/presentation/widgets/script_details/script_description.dart';
+import 'package:fonetic/presentation/screens/my_plays_screen.dart';
+import 'package:fonetic/presentation/widgets/script_details/produce_button.dart';
+import 'package:fonetic/presentation/widgets/script_details/script_actions.dart';
 
-class Header extends StatelessWidget {
+class Header extends ConsumerWidget {
   final Script script;
 
-  const Header({Key? key, required this.script}) : super(key: key);
+  const Header({required this.script});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ScopedReader watch) {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -22,23 +26,26 @@ class Header extends StatelessWidget {
             stops: [0, 0.5]),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
             height: Scaffold.of(context).appBarMaxHeight! * 0.7,
             width: double.infinity,
           ),
-          Container(
-            width: 256.w,
-            child: Hero(
-              tag: '${script.id}',
-              child: Container(
-                height: 256.w,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  image: DecorationImage(
-                    image: NetworkImage(script.cover),
-                    fit: BoxFit.cover,
+          Center(
+            child: Container(
+              width: 256.w,
+              child: Hero(
+                tag: '${script.id}',
+                child: Container(
+                  height: 256.w,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    image: DecorationImage(
+                      image: NetworkImage(script.cover),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
@@ -50,7 +57,13 @@ class Header extends StatelessWidget {
               script.name,
               style: Theme.of(context).textTheme.headline6,
               overflow: TextOverflow.ellipsis,
-              maxLines: 4,
+              maxLines: 2,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.h),
+            child: ProduceButton(
+              callBack: () => _produceButtonCallBack(context, watch),
             ),
           ),
           Container(
@@ -79,11 +92,23 @@ class Header extends StatelessWidget {
                 Text(
                   script.description,
                   style: Theme.of(context).textTheme.bodyText2,
-                )
+                ),
+                ScriptActions(script: script),
               ],
             ),
           )
         ],
+      ),
+    );
+  }
+
+  void _produceButtonCallBack(BuildContext context, ScopedReader watch) {
+    watch(myPlaysProvider('1').notifier).addPlay(script);
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute<void>(
+        builder: (BuildContext context) {
+          return MyPlaysScreen();
+        },
       ),
     );
   }

@@ -24,7 +24,7 @@ class DiscoverPlays extends StatelessWidget {
         ),
       ),
       Container(
-          height: 344.h,
+          height: 352.h,
           width: double.infinity,
           child: ListView.builder(
               itemCount: scripts.length,

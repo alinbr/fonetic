@@ -13,7 +13,7 @@ class ScriptActions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(16.h),
+      padding: EdgeInsets.only(top: 8.h),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -38,9 +38,12 @@ class ScriptActions extends StatelessWidget {
         context: context,
         isDismissible: true,
         barrierColor: Colors.black,
-        builder: (context) => Padding(
-              padding: EdgeInsets.all(16.h),
-              child: LinesPreview(scriptId: scriptId),
+        builder: (context) => Container(
+              color: Theme.of(context).backgroundColor,
+              child: Padding(
+                padding: EdgeInsets.all(16.h),
+                child: LinesPreview(scriptId: scriptId),
+              ),
             ));
   }
 

@@ -31,7 +31,7 @@ class HomeScreen extends ConsumerWidget {
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                stops: [0, 0.4]),
+                stops: [0, 0.35]),
           ),
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: 16.h),
@@ -44,9 +44,6 @@ class HomeScreen extends ConsumerWidget {
                     loading: () =>
                         Container(height: 340.h, child: LoadingCenter()),
                     error: (_, __) => Container()),
-                SizedBox(
-                  height: 8.h,
-                ),
                 myPlays.when(
                   data: (data) => MyPlays(plays: data),
                   loading: () => Container(),

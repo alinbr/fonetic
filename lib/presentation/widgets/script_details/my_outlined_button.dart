@@ -15,7 +15,7 @@ class MyOutlinedButton extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       ),
       child: Padding(
-        padding: EdgeInsets.all(16.h),
+        padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 4.h),
         child: Text(
           text,
           style: Theme.of(context).textTheme.button,

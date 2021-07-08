@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.dark,
           appBarTheme: const AppBarTheme(backgroundColor: Colors.black),
           scaffoldBackgroundColor: const Color(0xFF131418),
-          backgroundColor: const Color(0xFF1C1F27),
+          backgroundColor: const Color(0xFF1d212b),
           accentColor: const Color(0xFF1A112F),
           primaryColor: const Color(0xFF121212),
           iconTheme: const IconThemeData().copyWith(color: Colors.white),
@@ -37,11 +37,11 @@ class MyApp extends StatelessWidget {
             bodyText1: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.w500,
-              fontSize: 16.sp,
+              fontSize: 18.sp,
             ),
             bodyText2: TextStyle(
               color: const Color(0xFF505366),
-              fontSize: 14.sp,
+              fontSize: 16.sp,
             ),
           ),
         ),
