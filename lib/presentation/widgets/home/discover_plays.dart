@@ -15,7 +15,7 @@ class DiscoverPlays extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 16.w),
         width: double.infinity,
         child: Text(
-          'Discover plays',
+          'Discover scripts',
           textAlign: TextAlign.start,
           style: Theme.of(context)
               .textTheme

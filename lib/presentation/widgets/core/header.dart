@@ -11,37 +11,27 @@ class Header extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Flexible(
+        Container(
           child: Container(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                height: 100.h,
-                width: 100.h,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  image: DecorationImage(
-                    image: NetworkImage(play.cover),
-                    fit: BoxFit.cover,
-                  ),
-                ),
+            height: 96.h,
+            width: 96.h,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              image: DecorationImage(
+                image: NetworkImage(play.cover),
+                fit: BoxFit.cover,
               ),
             ),
           ),
         ),
         Flexible(
-          child: Container(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                play.name,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText1!
-                    .copyWith(fontSize: 18.sp),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-              ),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              play.name,
+              style: Theme.of(context).textTheme.bodyText1,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
             ),
           ),
         ),
