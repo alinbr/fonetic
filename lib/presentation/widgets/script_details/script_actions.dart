@@ -12,25 +12,24 @@ class ScriptActions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: EdgeInsets.all(24.w),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              MyOutlinedButton(
-                text: 'Characters',
-                callBack: () => _showCharacters(context, script.characters),
-              ),
-              MyOutlinedButton(
-                text: 'Script',
-                callBack: () => _showScript(context, script.id!),
-              ),
-            ],
+    return Padding(
+      padding: EdgeInsets.all(16.h),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          MyOutlinedButton(
+            text: 'Characters',
+            callBack: () => _showCharacters(context, script.characters),
           ),
-        ),
-      ],
+          SizedBox(
+            width: 16.w,
+          ),
+          MyOutlinedButton(
+            text: 'Script',
+            callBack: () => _showScript(context, script.id!),
+          ),
+        ],
+      ),
     );
   }
 
@@ -40,7 +39,7 @@ class ScriptActions extends StatelessWidget {
         isDismissible: true,
         barrierColor: Colors.black,
         builder: (context) => Padding(
-              padding: EdgeInsets.all(24.h),
+              padding: EdgeInsets.all(16.h),
               child: LinesPreview(scriptId: scriptId),
             ));
   }
@@ -51,20 +50,15 @@ class ScriptActions extends StatelessWidget {
         isDismissible: true,
         barrierColor: Colors.black,
         builder: (context) => Container(
-              padding: EdgeInsets.only(left: 24.h, top: 24.h),
+              padding: EdgeInsets.symmetric(horizontal: 16.h, vertical: 16.h),
               color: Theme.of(context).backgroundColor,
               child: ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) => Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    characters[index],
-                    textAlign: TextAlign.left,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1!
-                        .copyWith(fontWeight: FontWeight.w600),
-                  ),
+                  child: Text(characters[index],
+                      textAlign: TextAlign.left,
+                      style: Theme.of(context).textTheme.bodyText1),
                 ),
                 itemCount: characters.length,
               ),

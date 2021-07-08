@@ -24,24 +24,32 @@ class MyPlayCard extends StatelessWidget {
         ));
       },
       child: Container(
-          width: 150.h,
+          width: 168.h,
           margin: EdgeInsets.only(right: 16.w, left: first ? 16.w : 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 width: double.infinity,
-                height: 150.h,
+                height: 168.h,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(8),
                   image: DecorationImage(
                     image: NetworkImage(play.cover),
                     fit: BoxFit.cover,
                   ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.3),
+                      spreadRadius: 4,
+                      blurRadius: 6,
+                      offset: Offset(1, 6), // changes position of shadow
+                    ),
+                  ],
                 ),
               ),
               SizedBox(
-                height: 12.h,
+                height: 16.h,
               ),
               Text(
                 play.name,

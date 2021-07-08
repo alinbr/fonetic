@@ -21,30 +21,27 @@ class MyApp extends StatelessWidget {
         darkTheme: ThemeData(
           brightness: Brightness.dark,
           appBarTheme: const AppBarTheme(backgroundColor: Colors.black),
-          scaffoldBackgroundColor: const Color(0xFF121212),
-          backgroundColor: const Color(0xFF121212),
+          scaffoldBackgroundColor: const Color(0xFF131418),
+          backgroundColor: const Color(0xFF1C1F27),
+          accentColor: const Color(0xFF1A112F),
           primaryColor: const Color(0xFF121212),
-          accentColor: Colors.teal,
-          cardColor: const Color(0xFF282828),
           iconTheme: const IconThemeData().copyWith(color: Colors.white),
           fontFamily: 'Montserrat',
           textTheme: TextTheme(
             headline2: TextStyle(
               color: Colors.white,
-              fontSize: 28.sp,
-              fontWeight: FontWeight.bold,
             ),
             headline4: TextStyle(
               color: Colors.white,
-              fontWeight: FontWeight.w500,
             ),
             bodyText1: TextStyle(
               color: Colors.white,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w500,
               fontSize: 16.sp,
             ),
             bodyText2: TextStyle(
-              color: const Color(0xFFBFBFBF),
+              color: const Color(0xFF505366),
+              fontSize: 14.sp,
             ),
           ),
         ),

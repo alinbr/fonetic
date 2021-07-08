@@ -21,30 +21,25 @@ class LinesPreview extends ConsumerWidget {
       return SingleChildScrollView(
         child: Column(
             children: data.map((e) {
-          final note = e.note != "" ? ' (${e.note})' : '';
           return Column(
             children: [
               Row(
                 children: [
                   Flexible(
                     child: Text('${e.character}',
-                        style: Theme.of(context).textTheme.bodyText2),
+                        style: Theme.of(context).textTheme.bodyText1),
                   ),
-                  Text(note, style: Theme.of(context).textTheme.bodyText2),
-                  Text(' : ', style: Theme.of(context).textTheme.bodyText2),
+                  Text(' : ', style: Theme.of(context).textTheme.bodyText1),
                 ],
               ),
               Row(children: [
                 Flexible(
                   child: Text('${e.text}',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .copyWith(fontWeight: FontWeight.w400)),
+                      style: Theme.of(context).textTheme.bodyText1),
                 )
               ]),
               SizedBox(
-                height: 16.h,
+                height: 24.h,
               ),
             ],
           );

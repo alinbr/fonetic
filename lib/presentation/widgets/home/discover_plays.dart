@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fonetic/infrastructure/dtos/script.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fonetic/presentation/widgets/home/discover_play_card.dart';
@@ -18,11 +17,14 @@ class DiscoverPlays extends StatelessWidget {
         child: Text(
           'Discover plays',
           textAlign: TextAlign.start,
-          style: Theme.of(context).textTheme.headline2,
+          style: Theme.of(context)
+              .textTheme
+              .headline5!
+              .copyWith(fontWeight: FontWeight.w700),
         ),
       ),
       Container(
-          height: 300.h,
+          height: 344.h,
           width: double.infinity,
           child: ListView.builder(
               itemCount: scripts.length,

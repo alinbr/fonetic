@@ -12,16 +12,19 @@ class MyPlays extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: [
       Container(
-        padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 16.w),
+        padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 16.h),
         width: double.infinity,
         child: Text(
           'My plays',
           textAlign: TextAlign.start,
-          style: Theme.of(context).textTheme.headline2,
+          style: Theme.of(context)
+              .textTheme
+              .headline5!
+              .copyWith(fontWeight: FontWeight.w700),
         ),
       ),
       Container(
-        height: 200.h,
+        height: 250.h,
         width: double.infinity,
         child: ListView.builder(
             itemCount: plays.length,

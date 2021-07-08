@@ -77,11 +77,10 @@ class LineRecorderController extends StateNotifier<RecordingState> {
 
     var snapshot = await FirebaseStorage.instance
         .ref()
-        .child('$playId/$lineOrder')
+        .child('$playId/$lineOrder.aac')
         .putFile(outputFile, SettableMetadata(contentType: "audio/aac"));
 
     return await snapshot.ref.getDownloadURL();
-    return Future.value("aaa");
   }
 
   @override

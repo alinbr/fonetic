@@ -13,66 +13,76 @@ class Header extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-            colors: [Colors.teal, Theme.of(context).backgroundColor],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+            colors: [
+              Theme.of(context).accentColor,
+              Theme.of(context).scaffoldBackgroundColor
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
             stops: [0, 0.5]),
       ),
       child: Column(
         children: [
           SizedBox(
-            height: Scaffold.of(context).appBarMaxHeight,
+            height: Scaffold.of(context).appBarMaxHeight! * 0.7,
             width: double.infinity,
           ),
-          Row(
-            children: [
-              Flexible(
-                child: Container(
-                  width: double.infinity,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Hero(
-                      tag: '${script.id}',
-                      child: Container(
-                        height: 180.h,
-                        width: 180.h,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          image: DecorationImage(
-                            image: NetworkImage(script.cover),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    ),
+          Container(
+            width: 256.w,
+            child: Hero(
+              tag: '${script.id}',
+              child: Container(
+                height: 256.w,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  image: DecorationImage(
+                    image: NetworkImage(script.cover),
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
-              Flexible(
-                child: Container(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      script.name,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .copyWith(fontSize: 18.sp),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 4,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: ScriptDescription(
-              title: 'Description',
-              content: script.description,
             ),
           ),
+          Container(
+            margin: EdgeInsets.all(16.h),
+            child: Text(
+              script.name,
+              style: Theme.of(context).textTheme.headline6,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 4,
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              color: Theme.of(context).backgroundColor,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.3),
+                  spreadRadius: 4,
+                  blurRadius: 6,
+                  offset: Offset(1, 6), // changes position of shadow
+                ),
+              ],
+            ),
+            margin: EdgeInsets.all(16.h),
+            padding: EdgeInsets.all(16.h),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Description',
+                    style: Theme.of(context).textTheme.headline6),
+                SizedBox(
+                  height: 8.h,
+                ),
+                Text(
+                  script.description,
+                  style: Theme.of(context).textTheme.bodyText2,
+                )
+              ],
+            ),
+          )
         ],
       ),
     );

@@ -12,64 +12,81 @@ class DiscoverPlayCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute<void>(
-            builder: (BuildContext context) {
-              return ScriptDetailsScreen(script: script);
-            },
-          ),
-        );
-      },
-      child: Container(
-        width: 200.h,
-        margin: EdgeInsets.only(right: 16.w, left: first ? 16.w : 0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Hero(
-              tag: '${script.id}',
-              child: Container(
-                width: double.infinity,
-                height: 200.h,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    image: DecorationImage(
-                        image: NetworkImage(script.cover), fit: BoxFit.cover)),
+    return Column(
+      children: [
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (BuildContext context) {
+                  return ScriptDetailsScreen(script: script);
+                },
               ),
-            ),
-            SizedBox(
-              height: 12.h,
-            ),
-            Text(
-              script.name,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText1!
-                  .copyWith(fontWeight: FontWeight.bold),
-            ),
-            Text(script.description,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-                style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                    color: Color(0xFFc7c1c5), fontWeight: FontWeight.w400)),
-            SizedBox(
-              height: 4.h,
-            ),
-            Row(
-              children: [
-                _PlayData(icon: Icons.schedule, text: '${script.duration} min'),
-                SizedBox(
-                  width: 8.w,
+            );
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              color: Theme.of(context).backgroundColor,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.3),
+                  spreadRadius: 4,
+                  blurRadius: 6,
+                  offset: Offset(1, 6), // changes position of shadow
                 ),
-                _PlayData(icon: Icons.people, text: '${script.roles}'),
               ],
-            )
-          ],
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.w),
+            width: 256.w,
+            height: 336.h,
+            margin: EdgeInsets.only(right: 24.w, left: first ? 16.w : 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Hero(
+                  tag: '${script.id}',
+                  child: Container(
+                    width: 224.w,
+                    height: 150.h,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(24),
+                        image: DecorationImage(
+                            image: NetworkImage(script.cover),
+                            fit: BoxFit.cover)),
+                  ),
+                ),
+                SizedBox(
+                  height: 16.h,
+                ),
+                Text(script.name,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.bodyText1),
+                SizedBox(
+                  height: 8.h,
+                ),
+                Text(script.description,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
+                    style: Theme.of(context).textTheme.bodyText2),
+                SizedBox(
+                  height: 16.h,
+                ),
+                Row(
+                  children: [
+                    _PlayData(
+                        icon: Icons.schedule, text: '${script.duration} min'),
+                    SizedBox(
+                      width: 16.w,
+                    ),
+                    _PlayData(icon: Icons.people, text: '${script.roles}'),
+                  ],
+                )
+              ],
+            ),
+          ),
         ),
-      ),
+      ],
     );
   }
 }
@@ -93,9 +110,7 @@ class _PlayData extends StatelessWidget {
         SizedBox(
           width: 4.w,
         ),
-        Text(text,
-            style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                color: Color(0xFFc7c1c5), fontWeight: FontWeight.w400))
+        Text(text, style: Theme.of(context).textTheme.bodyText2)
       ],
     );
   }

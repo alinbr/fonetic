@@ -10,17 +10,21 @@ class ProduceButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(Colors.teal),
+          backgroundColor:
+              MaterialStateProperty.all<Color>(Colors.tealAccent[700]!),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(32.0),
+            borderRadius: BorderRadius.circular(24.0),
           )),
         ),
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 18.h),
+          padding: EdgeInsets.all(16.h),
           child: Text(
-            'Produce',
-            style: Theme.of(context).textTheme.button,
+            'Record it!',
+            style: Theme.of(context)
+                .textTheme
+                .button!
+                .copyWith(color: Colors.black, fontWeight: FontWeight.w700),
           ),
         ),
         onPressed: callBack);

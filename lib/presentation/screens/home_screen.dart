@@ -14,37 +14,45 @@ class HomeScreen extends ConsumerWidget {
     final scripts = watch(scriptProvider);
     final myPlays = watch(myPlaysProvider("1"));
 
-    return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  colors: [Theme.of(context).accentColor, Colors.transparent],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomCenter,
-                  stops: [0, 0.35]),
-            ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.h),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Header(),
-                  scripts.when(
-                      data: (data) => DiscoverPlays(scripts: data),
-                      loading: () => LoadingCenter(),
-                      error: (_, __) => Container()),
-                  SizedBox(
-                    height: 16.h,
-                  ),
-                  myPlays.when(
-                    data: (data) => MyPlays(plays: data),
-                    loading: () => LoadingCenter(),
-                    error: (_, __) => Container(),
-                  )
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        shadowColor: Colors.transparent,
+        backgroundColor: Colors.transparent,
+        toolbarHeight: 0,
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                colors: [
+                  Theme.of(context).accentColor,
+                  Theme.of(context).scaffoldBackgroundColor
                 ],
-              ),
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                stops: [0, 0.4]),
+          ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 16.h),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Header(),
+                scripts.when(
+                    data: (data) => DiscoverPlays(scripts: data),
+                    loading: () =>
+                        Container(height: 340.h, child: LoadingCenter()),
+                    error: (_, __) => Container()),
+                SizedBox(
+                  height: 8.h,
+                ),
+                myPlays.when(
+                  data: (data) => MyPlays(plays: data),
+                  loading: () => Container(),
+                  error: (_, __) => Container(),
+                )
+              ],
             ),
           ),
         ),

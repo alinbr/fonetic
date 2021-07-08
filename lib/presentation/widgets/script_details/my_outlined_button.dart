@@ -12,25 +12,13 @@ class MyOutlinedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton(
       style: OutlinedButton.styleFrom(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: 16,
-        ),
-        child: Container(
-          width: 100.w,
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 2,
-              ),
-              child: Text(
-                text,
-                style: Theme.of(context).textTheme.button,
-              ),
-            ),
-          ),
+        padding: EdgeInsets.all(16.h),
+        child: Text(
+          text,
+          style: Theme.of(context).textTheme.button,
         ),
       ),
       onPressed: callBack,
