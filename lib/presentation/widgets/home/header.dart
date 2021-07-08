@@ -20,10 +20,6 @@ class Header extends StatelessWidget {
                       .textTheme
                       .headline5!
                       .copyWith(fontWeight: FontWeight.w600)),
-              IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.settings),
-              )
             ],
           ),
         ),

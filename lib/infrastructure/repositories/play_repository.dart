@@ -49,8 +49,9 @@ class PlayRepository implements BasePlayRepository {
   @override
   Future<Play> retrievePlay(String playId) async {
     try {
+      print(playId);
       final snap = await _service.doc(playId).get();
-
+      print(snap.data());
       return snap.data()!;
     } on FirebaseException catch (e) {
       throw Exception("Could not retrieve lines: ${e.message}");
