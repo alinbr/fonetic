@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fonetic/application/play_controller.dart';
+import 'package:fonetic/application/recording/recorded_lines_controller.dart';
 import 'package:fonetic/infrastructure/utils.dart';
 import 'package:fonetic/presentation/screens/record_screen.dart';
+import 'package:fonetic/presentation/widgets/core/default_card_decoration.dart';
 import 'package:fonetic/presentation/widgets/core/header.dart';
 import 'package:fonetic/presentation/widgets/delete_play_dialog.dart';
 import 'package:fonetic/presentation/widgets/core/loading_center.dart';
@@ -16,14 +18,20 @@ class PlayScreen extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     final play = watch(playProvider);
 
+    final recordedLines = watch(recordedLinesOrdersProvider);
+
     print("rebuild play screen");
 
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Theme.of(context).accentColor,
         shadowColor: Colors.transparent,
-        title: Text("Play details"),
+        centerTitle: true,
+        title: Text(
+          "Play details",
+          style: Theme.of(context).textTheme.headline6,
+        ),
         actions: [
           IconButton(
               onPressed: () {
@@ -43,10 +51,11 @@ class PlayScreen extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       TransparentAppBarHeader(),
-                      Padding(
-                        padding: EdgeInsets.all(16.h),
-                        child: Header(play: play),
+                      Container(
+                        height: 20,
+                        color: Theme.of(context).accentColor,
                       ),
+                      Header(play: play),
                       Container(
                           padding: EdgeInsets.symmetric(horizontal: 16.h),
                           child: Chip(
@@ -54,40 +63,33 @@ class PlayScreen extends ConsumerWidget {
                                   fromStatusToColor(play.playStatus),
                               label: Text(
                                 fromStatusToText(play.playStatus),
-                                style: Theme.of(context).textTheme.subtitle2,
                               ))),
+                      SizedBox(
+                        height: 24.h,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 16.h,
+                        ),
+                        child: Text(
+                          "Recording",
+                          style: Theme.of(context).textTheme.headline5,
+                        ),
+                      ),
                       Container(
                           margin: EdgeInsets.all(16.h),
                           width: double.infinity,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16),
-                              color: Theme.of(context).backgroundColor,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.3),
-                                  spreadRadius: 4,
-                                  blurRadius: 6,
-                                  offset: Offset(
-                                      1, 6), // changes position of shadow
-                                ),
-                              ]),
+                          decoration: defaultCardDecoration(context),
+                          padding: EdgeInsets.all(16.h),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Padding(
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: 8.h, vertical: 16.h),
-                                child: Text(
-                                  "Recording",
-                                  style: Theme.of(context).textTheme.headline6,
+                                  horizontal: 8.h,
                                 ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 8.w,
-                                ),
-                                child: Column(
+                                child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text('Characters',
@@ -95,7 +97,7 @@ class PlayScreen extends ConsumerWidget {
                                             .textTheme
                                             .bodyText1),
                                     Text(
-                                      "Tap on a character to assing",
+                                      " - tap on a character to assing",
                                       style:
                                           Theme.of(context).textTheme.bodyText2,
                                     )
@@ -103,7 +105,7 @@ class PlayScreen extends ConsumerWidget {
                                 ),
                               ),
                               SizedBox(
-                                height: 4.h,
+                                height: 12.h,
                               ),
                               Container(
                                   height: (ScreenUtil().screenWidth / 3) *
@@ -143,9 +145,9 @@ class PlayScreen extends ConsumerWidget {
                                                                 .userId !=
                                                             null
                                                         ? Colors.green
-                                                            .withOpacity(0.8)
+                                                            .withOpacity(0.3)
                                                         : Colors.black
-                                                            .withOpacity(0.4)),
+                                                            .withOpacity(0.2)),
                                                 child: Column(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
@@ -164,85 +166,90 @@ class PlayScreen extends ConsumerWidget {
                                             )),
                                   )),
                               Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 8.h, vertical: 8.h),
-                                child: ElevatedButton(
-                                  style: ButtonStyle(
-                                    backgroundColor: context
-                                            .read(playProvider.notifier)
-                                            .isRecordable(play)
-                                        ? MaterialStateProperty.all<Color>(
-                                            Colors.tealAccent[700]!)
-                                        : MaterialStateProperty.all<Color>(
-                                            Colors.grey),
-                                    shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(24.0),
-                                      ),
-                                    ),
-                                  ),
-                                  child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                    "${recordedLines.length} lines recorded"),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Padding(
                                     padding: EdgeInsets.symmetric(
-                                        vertical: 16.h, horizontal: 4.h),
-                                    child: Text(
-                                      'Record Lines',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .button!
-                                          .copyWith(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w700),
+                                      horizontal: 16.h,
+                                    ),
+                                    child: ElevatedButton(
+                                      style: ButtonStyle(
+                                        backgroundColor: context
+                                                .read(playProvider.notifier)
+                                                .isRecordable(play)
+                                            ? MaterialStateProperty.all<Color>(
+                                                Colors.tealAccent[700]!)
+                                            : MaterialStateProperty.all<Color>(
+                                                Colors.grey),
+                                        shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(24.0),
+                                          ),
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 16.h, horizontal: 4.h),
+                                        child: Text(
+                                          'Record Lines',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .button!
+                                              .copyWith(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.w700),
+                                        ),
+                                      ),
+                                      onPressed: context
+                                              .read(playProvider.notifier)
+                                              .isRecordable(play)
+                                          ? () {
+                                              Navigator.of(context)
+                                                  .pushReplacement(
+                                                      MaterialPageRoute<void>(
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return RecordScreen(
+                                                      playId: play.id!);
+                                                },
+                                              ));
+                                            }
+                                          : null,
                                     ),
                                   ),
-                                  onPressed: context
-                                          .read(playProvider.notifier)
-                                          .isRecordable(play)
-                                      ? () {
-                                          Navigator.of(context).pushReplacement(
-                                              MaterialPageRoute<void>(
-                                            builder: (BuildContext context) {
-                                              return RecordScreen(
-                                                  playId: play.id!);
-                                            },
-                                          ));
-                                        }
-                                      : null,
-                                ),
+                                ],
                               ),
                               SizedBox(
                                 height: 16.h,
                               )
                             ],
                           )),
+                      SizedBox(
+                        height: 24.h,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.h),
+                        child: Text(
+                          "Post Production",
+                          style: Theme.of(context).textTheme.headline5,
+                        ),
+                      ),
                       Container(
                         margin: EdgeInsets.all(16.h),
+                        height: 200.h,
                         width: double.infinity,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            color: Theme.of(context).backgroundColor,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.3),
-                                spreadRadius: 4,
-                                blurRadius: 6,
-                                offset:
-                                    Offset(1, 6), // changes position of shadow
-                              ),
-                            ]),
+                        decoration: defaultCardDecoration(context),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 8.h, vertical: 16.h),
-                              child: Text(
-                                "Post Production",
-                                style: Theme.of(context).textTheme.headline6,
-                              ),
-                            ),
                             ElevatedButton(
                                 onPressed: () {
                                   Navigator.of(context)

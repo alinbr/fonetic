@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fonetic/application/my_plays_controller.dart';
 import 'package:fonetic/infrastructure/dtos/script.dart';
 import 'package:fonetic/presentation/screens/my_plays_screen.dart';
+import 'package:fonetic/presentation/widgets/core/default_card_decoration.dart';
 import 'package:fonetic/presentation/widgets/script_details/produce_button.dart';
 import 'package:fonetic/presentation/widgets/script_details/script_actions.dart';
 
@@ -21,8 +22,8 @@ class Header extends ConsumerWidget {
               Theme.of(context).accentColor,
               Theme.of(context).scaffoldBackgroundColor
             ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
             stops: [0, 0.5]),
       ),
       child: Column(
@@ -34,11 +35,11 @@ class Header extends ConsumerWidget {
           ),
           Center(
             child: Container(
-              width: 256.w,
+              width: 200.w,
               child: Hero(
                 tag: '${script.id}',
                 child: Container(
-                  height: 256.w,
+                  height: 200.w,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16),
@@ -51,41 +52,34 @@ class Header extends ConsumerWidget {
               ),
             ),
           ),
-          Container(
-            margin: EdgeInsets.all(16.h),
-            child: Text(
-              script.name,
-              style: Theme.of(context).textTheme.headline6,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 2,
+          Center(
+            child: Container(
+              margin: EdgeInsets.symmetric(vertical: 16.h, horizontal: 16.w),
+              child: Text(
+                script.name,
+                style: Theme.of(context).textTheme.headline5,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.h),
-            child: ProduceButton(
-              callBack: () => _produceButtonCallBack(context, watch),
+          Center(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.h),
+              child: ProduceButton(
+                callBack: () => _produceButtonCallBack(context, watch),
+              ),
             ),
           ),
           Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              color: Theme.of(context).backgroundColor,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.3),
-                  spreadRadius: 4,
-                  blurRadius: 6,
-                  offset: Offset(1, 6), // changes position of shadow
-                ),
-              ],
-            ),
+            decoration: defaultCardDecoration(context),
             margin: EdgeInsets.all(16.h),
             padding: EdgeInsets.all(16.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('Description',
-                    style: Theme.of(context).textTheme.headline6),
+                    style: Theme.of(context).textTheme.headline5),
                 SizedBox(
                   height: 8.h,
                 ),
@@ -96,7 +90,7 @@ class Header extends ConsumerWidget {
                 ScriptActions(script: script),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

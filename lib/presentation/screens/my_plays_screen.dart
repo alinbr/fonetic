@@ -4,6 +4,7 @@ import 'package:fonetic/application/my_plays_controller.dart';
 import 'package:fonetic/application/play_controller.dart';
 import 'package:fonetic/infrastructure/utils.dart';
 import 'package:fonetic/presentation/screens/play_screen.dart';
+import 'package:fonetic/presentation/widgets/core/default_card_decoration.dart';
 import 'package:fonetic/presentation/widgets/core/loading_center.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -14,9 +15,11 @@ class MyPlaysScreen extends ConsumerWidget {
 
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          backgroundColor: Theme.of(context).accentColor,
+          centerTitle: true,
           title: Text(
-            'My plays',
+            'Your plays',
+            style: Theme.of(context).textTheme.headline6,
           ),
         ),
         body: myPlays.when(
@@ -36,18 +39,7 @@ class MyPlaysScreen extends ConsumerWidget {
                     child: Container(
                       height: 96,
                       width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.3),
-                            spreadRadius: 4,
-                            blurRadius: 6,
-                            offset: Offset(1, 6), // changes position of shadow
-                          ),
-                        ],
-                        color: Theme.of(context).backgroundColor,
-                      ),
+                      decoration: defaultCardDecoration(context),
                       margin:
                           EdgeInsets.symmetric(horizontal: 16.h, vertical: 8.h),
                       child: Row(
@@ -72,12 +64,13 @@ class MyPlaysScreen extends ConsumerWidget {
                                   top: 8.h, left: 16.h, right: 16.h),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Container(
                                     child: Text(
                                       data[i].name,
                                       style:
-                                          Theme.of(context).textTheme.bodyText1,
+                                          Theme.of(context).textTheme.subtitle2,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                     ),
@@ -87,9 +80,6 @@ class MyPlaysScreen extends ConsumerWidget {
                                           fromStatusToColor(data[i].playStatus),
                                       label: Text(
                                         fromStatusToText(data[i].playStatus),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .subtitle2,
                                       ))
                                 ],
                               ),

@@ -35,7 +35,7 @@ class LinesPreview extends ConsumerWidget {
               Row(children: [
                 Flexible(
                   child: Text('${e.text}',
-                      style: Theme.of(context).textTheme.bodyText1),
+                      style: Theme.of(context).textTheme.bodyText2),
                 )
               ]),
               SizedBox(

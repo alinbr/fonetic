@@ -9,33 +9,45 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          child: Container(
-            height: 96.h,
-            width: 96.h,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              image: DecorationImage(
-                image: NetworkImage(play.cover),
-                fit: BoxFit.cover,
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+            colors: [
+              Theme.of(context).accentColor,
+              Theme.of(context).scaffoldBackgroundColor
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: [0, 1]),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: EdgeInsets.only(left: 16.h),
+            child: Container(
+              height: 98.h,
+              width: 98.h,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                image: DecorationImage(
+                  image: NetworkImage(play.cover),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
-        ),
-        Flexible(
-          child: Padding(
+          Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(
               play.name,
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.headline5,
               overflow: TextOverflow.ellipsis,
-              maxLines: 2,
+              maxLines: 3,
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

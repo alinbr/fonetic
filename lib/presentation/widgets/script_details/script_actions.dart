@@ -61,7 +61,7 @@ class ScriptActions extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(characters[index],
                       textAlign: TextAlign.left,
-                      style: Theme.of(context).textTheme.bodyText1),
+                      style: Theme.of(context).textTheme.bodyText2),
                 ),
                 itemCount: characters.length,
               ),

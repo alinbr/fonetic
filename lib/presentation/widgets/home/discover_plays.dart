@@ -11,20 +11,18 @@ class DiscoverPlays extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
+      SizedBox(
+        height: 8,
+      ),
       Container(
         padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 16.w),
         width: double.infinity,
-        child: Text(
-          'Discover scripts',
-          textAlign: TextAlign.start,
-          style: Theme.of(context)
-              .textTheme
-              .headline5!
-              .copyWith(fontWeight: FontWeight.w700),
-        ),
+        child: Text('Discover scripts',
+            textAlign: TextAlign.start,
+            style: Theme.of(context).textTheme.headline5),
       ),
       Container(
-          height: 352.h,
+          height: 420.h,
           width: double.infinity,
           child: ListView.builder(
               itemCount: scripts.length,
