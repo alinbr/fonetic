@@ -8,7 +8,7 @@ class OutOfFocusLine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (line == null) return Container();
+    if (line == null) return Text('');
     return Text(
       '${line!.character}: ${line!.text}',
       style: Theme.of(context).textTheme.bodyText2,

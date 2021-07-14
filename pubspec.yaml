@@ -29,6 +29,7 @@ dependencies:
   firebase_storage: ^9.0.0
   flutter_riverpod: ^0.14.0+3
   flutter_screenutil: ^5.0.0+2
+  flutter_sinusoidals: ^0.1.4
   flutter_sound: ^8.1.9
   just_audio: ^0.8.0
   modal_bottom_sheet: ^2.0.0

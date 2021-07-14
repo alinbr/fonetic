@@ -107,8 +107,13 @@ class PlayController extends StateNotifier<AsyncValue<Play>> {
     String fileUrl = await _read(lineRecorderProvider.notifier)
         .uploadFile(_playId, lineOrder);
 
-    await _read(recordedLinesProvider.notifier)
-        .addRecordedLine(RecordedLine(order: lineOrder!, audioLink: fileUrl));
+    int duration = await _read(lineRecorderProvider.notifier).getDuration();
+
+    await _read(recordedLinesProvider.notifier).addRecordedLine(RecordedLine(
+      order: lineOrder!,
+      audioLink: fileUrl,
+      durationInMiliseconds: duration,
+    ));
 
     _read(lineRecorderProvider.notifier).resetState();
 

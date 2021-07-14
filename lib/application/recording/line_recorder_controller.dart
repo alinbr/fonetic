@@ -8,7 +8,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 final lineRecorderProvider =
-    StateNotifierProvider<LineRecorderController, RecordingState>((ref) {
+    StateNotifierProvider.autoDispose<LineRecorderController, RecordingState>(
+        (ref) {
   return LineRecorderController();
 });
 
@@ -25,6 +26,7 @@ class LineRecorderController extends StateNotifier<RecordingState> {
 
   Future<void> init() async {
     await openTheRecorder();
+
     await _player.openAudioSession();
   }
 
@@ -38,6 +40,7 @@ class LineRecorderController extends StateNotifier<RecordingState> {
 
   void stopRecording() async {
     _recorder.stopRecorder();
+
     state = RecordingState.RECORDED;
   }
 
@@ -67,6 +70,12 @@ class LineRecorderController extends StateNotifier<RecordingState> {
       throw RecordingPermissionException('Microphone permission not granted');
     }
     await _recorder.openAudioSession();
+  }
+
+  Future<int> getDuration() async {
+    Directory tempDir = await getTemporaryDirectory();
+    File outputFile = File('${tempDir.path}/flutter_sound-tmp.aac');
+    return (await flutterSoundHelper.duration(outputFile.path))!.inMilliseconds;
   }
 
   Future<String> uploadFile(playId, lineOrder) async {

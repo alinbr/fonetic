@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fonetic/application/play_controller.dart';
 import 'package:fonetic/application/recording/recorded_lines_controller.dart';
+import 'package:fonetic/infrastructure/dtos/play.dart';
 import 'package:fonetic/infrastructure/utils.dart';
 import 'package:fonetic/presentation/screens/record_screen.dart';
 import 'package:fonetic/presentation/widgets/core/default_card_decoration.dart';
@@ -71,10 +72,15 @@ class PlayScreen extends ConsumerWidget {
                         padding: EdgeInsets.symmetric(
                           horizontal: 16.h,
                         ),
-                        child: Text(
-                          "Recording",
-                          style: Theme.of(context).textTheme.headline5,
-                        ),
+                        child: play.playStatus == PlayStatus.IN_PROGRESS
+                            ? Text(
+                                "Recording",
+                                style: Theme.of(context).textTheme.headline5,
+                              )
+                            : Text(
+                                "Recording - done!",
+                                style: Theme.of(context).textTheme.headline5,
+                              ),
                       ),
                       Container(
                           margin: EdgeInsets.all(16.h),

@@ -20,29 +20,30 @@ class RecordingLines extends ConsumerWidget {
       return Expanded(
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.h, vertical: 8.h),
+            padding: EdgeInsets.symmetric(horizontal: 16.h),
             child: Container(
               width: double.infinity,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   OutOfFocusLine(line: data.previousLine),
-                  SizedBox(
-                    height: 4.h,
+                  Icon(
+                    Icons.format_quote_rounded,
+                    size: 48.sp,
                   ),
                   Container(
                     child: Text(
-                      '${data.currentLine!.character}: ${data.currentLine!.text}',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .copyWith(fontSize: 18.sp),
-                    ),
+                        '${data.currentLine!.character}: ${data.currentLine!.text}',
+                        style: Theme.of(context).textTheme.headline4),
                   ),
-                  SizedBox(
-                    height: 4.h,
+                  Icon(
+                    Icons.format_quote_rounded,
+                    size: 48.sp,
                   ),
                   OutOfFocusLine(line: data.nextLine),
+                  SizedBox(
+                    height: 120.h,
+                  ),
                 ],
               ),
             ),

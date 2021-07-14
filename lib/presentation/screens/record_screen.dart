@@ -24,11 +24,20 @@ class RecordScreen extends ConsumerWidget {
         if (playData.playStatus == PlayStatus.IN_PROGRESS)
           return Scaffold(
             appBar: AppBar(
-              title: Text('Record play'),
+              backgroundColor: Theme.of(context).accentColor,
+              shadowColor: Colors.transparent,
+              centerTitle: true,
+              title: Text(
+                "Record",
+                style: Theme.of(context).textTheme.headline6,
+              ),
             ),
             body: Column(
               children: [
-                Header(play: playData),
+                Header(
+                  play: playData,
+                  includePhoto: false,
+                ),
                 RecordingLines(playData),
               ],
             ),
