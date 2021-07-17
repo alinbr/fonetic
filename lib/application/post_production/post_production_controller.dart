@@ -1,6 +1,7 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_sound/flutter_sound.dart';
 import 'package:fonetic/application/play_controller.dart';
 import 'package:fonetic/application/recording/recorded_lines_controller.dart';
 import 'package:just_audio/just_audio.dart';
@@ -20,6 +21,8 @@ class PostProductionController extends StateNotifier<PostProductionState> {
 
   var durationsOffset = [];
 
+  bool dragging = false;
+
   PostProductionController(this._read) : super(PostProductionState.empty()) {
     initPlayer();
 
@@ -33,7 +36,7 @@ class PostProductionController extends StateNotifier<PostProductionState> {
       durationsOffset.add(currentDuration);
     }
     _scrollController.addListener(() {
-      print("offset = ${_scrollController.offset}");
+      // print("offset = ${_scrollController.offset}");
     });
   }
 
@@ -58,7 +61,8 @@ class PostProductionController extends StateNotifier<PostProductionState> {
 
     _player = AudioPlayer();
 
-    _player.setAudioSource(ConcatenatingAudioSource(children: audioSources));
+    _player.setAudioSource(ConcatenatingAudioSource(children: audioSources),
+        preload: true);
 
     await _player.load();
 
@@ -78,11 +82,14 @@ class PostProductionController extends StateNotifier<PostProductionState> {
       maxPeriod: Duration(milliseconds: 100),
     )
         .forEach((element) {
-      _scrollController.animateTo(
-          (element.inMilliseconds / 10) +
-              durationsOffset[_player.currentIndex!] / 10,
-          duration: Duration(milliseconds: 100),
-          curve: Curves.linear);
+      if (dragging) return;
+
+      if (_player.processingState == ProcessingState.ready)
+        _scrollController.animateTo(
+            (element.inMilliseconds / 10) +
+                durationsOffset[_player.currentIndex!] / 10,
+            duration: Duration(milliseconds: 100),
+            curve: Curves.linear);
       print(
           "${_player.currentIndex}: element.inMilliseconds : ${element.inMilliseconds.toString()}");
     });
@@ -91,8 +98,8 @@ class PostProductionController extends StateNotifier<PostProductionState> {
       print("duration: ${element!.inSeconds.toString()}");
     });
 
-    _player.positionStream.listen((event) {
-      // print(event);
+    _player.currentIndexStream.listen((event) {
+      state = state.copyWith(currentIndex: event);
     });
 
     state = state.copyWith(
@@ -113,6 +120,34 @@ class PostProductionController extends StateNotifier<PostProductionState> {
     state = state.copyWith(status: PostProductionStatus.INITIALISED);
   }
 
+  void draggingStart() {
+    pause();
+    dragging = true;
+  }
+
+  Future<void> draggingStop() async {
+    print("dragging stop event START");
+
+    print(durationsOffset);
+    print("offset = ${_scrollController.offset}");
+    double newDurationInMiliseconds = _scrollController.offset * 10;
+    int newIndex = 0;
+    while (newDurationInMiliseconds > durationsOffset[newIndex] ||
+        newIndex > durationsOffset.length) newIndex++;
+    newIndex--;
+    print(newIndex);
+    await _player.seek(
+        Duration(
+            milliseconds:
+                (newDurationInMiliseconds - durationsOffset[newIndex]).floor()),
+        index: newIndex);
+
+    print("dragging stop event END");
+    // play();
+
+    dragging = false;
+  }
+
   ScrollController getSCrollControler() {
     return _scrollController;
   }
@@ -123,19 +158,20 @@ enum PostProductionStatus { LOADING, INITIALISED, PLAYING }
 class PostProductionState {
   final PostProductionStatus status;
   final AudioPlayer player;
-  final Duration duration;
+  final int currentIndex;
 
   PostProductionState(
-      {required this.status, required this.player, required this.duration});
+      {required this.status, required this.player, required this.currentIndex});
 
-  PostProductionState copyWith({status, player, duration}) {
+  PostProductionState copyWith({status, player, duration, currentIndex}) {
     return PostProductionState(
-        status: status ?? this.status,
-        player: player ?? this.player,
-        duration: duration ?? this.duration);
+      status: status ?? this.status,
+      player: player ?? this.player,
+      currentIndex: currentIndex ?? this.currentIndex,
+    );
   }
 
-  String getDurationFormatted() {
+  String getDurationFormatted(Duration duration) {
     String twoDigits(int n) => n.toString().padLeft(2, "0");
     return twoDigits(duration.inMinutes) +
         ":" +
@@ -144,8 +180,9 @@ class PostProductionState {
 
   factory PostProductionState.empty() {
     return PostProductionState(
-        status: PostProductionStatus.LOADING,
-        player: AudioPlayer(),
-        duration: Duration(seconds: 0));
+      status: PostProductionStatus.LOADING,
+      player: AudioPlayer(),
+      currentIndex: 0,
+    );
   }
 }
